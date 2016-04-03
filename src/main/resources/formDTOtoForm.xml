@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+<!--   <configuration> -->
+<!--     <custom-converters> these are always bi-directional -->
+<!--        <converter  -->
+<!--         type="ar.com.mantenimiento.dozer.CustomDozerFormDTOForm" > -->
+<!--         <class-a>ar.com.mantenimiento.dto.FormDTO</class-a> -->
+<!--         <class-b>ar.com.mantenimiento.entity.Form</class-b> -->
+<!--       </converter> -->
+
+     
+<!--     </custom-converters>      -->
+<!--   </configuration> -->
+
+<mapping>
+  <class-a>ar.com.mantenimiento.dto.FormDTO</class-a>
+  <class-b>ar.com.mantenimiento.entity.FormLegacy</class-b>    
+  <field custom-converter=
+    "ar.com.mantenimiento.dozer.CustomDozerFormDTOForm">
+    <a>fechaProgramada</a>
+    <b>fechaProgramada</b>
+  </field>
+    <field custom-converter=
+    "ar.com.mantenimiento.dozer.CustomDozerFormDTOForm">
+    <a>fechaRealizacion</a>
+    <b>fechaRealizacion</b>
+  </field>
+  
+</mapping>  
+  
+</mappings>

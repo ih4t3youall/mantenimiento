@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+	<configuration>
+		<custom-converters> <!-- these are always bi-directional -->
+
+
+			<!-- You are responsible for mapping everything between ClassA and ClassB -->
+<!-- 			<converter type="ar.com.mantenimiento.dozer.CustomDozerLegacyDTO"> -->
+<!-- 				<class-a> -->
+<!-- 					ar.com.mantenimiento.entity.FormLegacy -->
+<!-- 				</class-a> -->
+<!-- 				<class-b> -->
+
+<!-- 					ar.com.mantenimiento.dto.LegacyDTO -->
+<!-- 				</class-b> -->
+<!-- 			</converter> -->
+
+
+
+			<converter type="ar.com.mantenimiento.dozer.CustomDozerLegacyDTO">
+				<class-a>
+					ar.com.mantenimiento.dto.LegacyDTO
+
+				</class-a>
+				<class-b>
+
+					ar.com.mantenimiento.entity.FormLegacy
+				</class-b>
+			</converter>
+
+		</custom-converters>
+	</configuration>
+
+</mappings>
+        
