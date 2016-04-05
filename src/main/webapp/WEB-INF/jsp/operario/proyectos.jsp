@@ -129,7 +129,7 @@
 
 
 	</div>
-	<button type="submit" onclick="volver()" class="btn btn-default">Volver</button>
+	<button type="submit" onclick="volver()" class="btn btn-primary">Volver</button>
 
 
 

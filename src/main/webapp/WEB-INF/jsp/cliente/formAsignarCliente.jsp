@@ -23,7 +23,14 @@
 			$('#formAsignarCliente').submit();
 		} else {
 
-			alert("debe completar los formularios");
+			//alert("debe completar los formularios");
+			$.notify({
+				// options
+				message: 'Todos los campos son obligatorios.' 
+			},{
+				// settings
+				type: 'danger'
+			});
 
 		}
 
@@ -72,7 +79,7 @@
 	<br />
 
 	<input type="button" onclick="submitFormAsociar()" value="Asociar"
-		class="form-control" placeholder="Username"
+		class="form-control btn btn-primary" placeholder="Username"
 		aria-describedby="basic-addon1">
 
 

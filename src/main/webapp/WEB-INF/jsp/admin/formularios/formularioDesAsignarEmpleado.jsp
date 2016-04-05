@@ -83,7 +83,7 @@ function verProyecto(idProyecto){
 		<br />
 
 		<input type="button" onclick="submitForm('formAsignarEmpleado','')"
-			value="DesAsociar" class="form-control" placeholder="Username"
+			value="DesAsociar" class="form-control btn btn-primary" placeholder="Username"
 			aria-describedby="basic-addon1">
 
 	</form:form>

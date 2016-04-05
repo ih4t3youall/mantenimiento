@@ -93,14 +93,14 @@
 		<br>
 
 <form id="upload-file-form">
-  <label for="upload-file-input">Subir pdf:</label>
+  <label for="upload-file-input">Subir Logo:</label>
   <input id="upload-file-input" type="file" name="uploadfile" accept="*" />
 </form>
-
+<br>
 
 
 		<input type="button" onclick="subirImagen()"
-			value="Crear" class="form-control" placeholder="Username"
+			value="Crear" class="form-control btn btn-primary" placeholder="Username"
 			aria-describedby="basic-addon1">
 
 

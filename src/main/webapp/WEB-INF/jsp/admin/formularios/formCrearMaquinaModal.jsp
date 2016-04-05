@@ -33,7 +33,7 @@
 
 
 		<input type="button" onclick="submitFormMaquinaModal()"
-			value="Crear" class="form-control" placeholder="Username"
+			value="Crear" class="form-control btn btn-primary" placeholder="Username"
 			aria-describedby="basic-addon1">
 
 	</form:form>

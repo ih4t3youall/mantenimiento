@@ -50,7 +50,14 @@ function submitFormAsociar(){
 	$('#formAsignarEmpleado').submit();
 	}else{
 		
-		alert("debe completar los formularios");
+		//alert("debe completar los formularios");
+		$.notify({
+			// options
+			message: 'Todos los campos son obligatorios.' 
+		},{
+			// settings
+			type: 'danger'
+		});
 		
 	}
 	
@@ -92,7 +99,7 @@ function submitFormAsociar(){
 		</select>
 
 
-		<label>Seleccione Proyecto</label>
+		<label>Seleccione Proyecto:</label>
 		<select class="form-control" id="comboProyectos">
 
 
@@ -107,7 +114,7 @@ function submitFormAsociar(){
 		<br />
 
 		<input type="button" onclick="submitFormAsociar()"
-			value="Asociar" class="form-control" placeholder="Username"
+			value="Asociar" class="form-control btn btn-primary" placeholder="Username"
 			aria-describedby="basic-addon1">
 
 

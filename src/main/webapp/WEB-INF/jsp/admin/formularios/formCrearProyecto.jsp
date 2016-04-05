@@ -49,7 +49,7 @@
 		<br />
 
 		<input type="button" onclick="submitForm('formCrearProyecto','')"
-			value="Asociar" class="form-control" placeholder="Username"
+			value="Asociar" class="form-control btn btn-primary" placeholder="Username"
 			aria-describedby="basic-addon1">
 
 	</form:form>

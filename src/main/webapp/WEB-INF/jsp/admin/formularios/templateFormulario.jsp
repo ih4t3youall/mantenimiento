@@ -185,11 +185,12 @@
 	}
 
 	function submitFormMaquinaModal() {
-
+	
 		var idEmpresa = $("#comboEmpresas").val();
 		var idProyecto = $("#comboProyectos").val();
 		var nombreMaquina = $("#nombreMaquina").val();
 		var descripcionMaquina = $("#descripcionMaquina").val();
+		if (nombreMaquina != "" && descripcionMaquina != "") {
 		$.ajax({
 
 			url : "insertarMaquinaModal.htm",
@@ -209,6 +210,18 @@
 			}
 
 		});
+		} else {
+
+			//alert("debe completar los formularios");
+			$.notify({
+				// options
+				message: 'Todos los campos son obligatorios.' 
+			},{
+				// settings
+				type: 'danger'
+			});
+
+		}
 
 	}
 </script>
@@ -247,7 +260,7 @@
 	</div>
 
 
-	<h3>Crear nuevo checklist</h3>
+	<h3>Crear Nuevo Checklist</h3>
 
 
 
@@ -255,7 +268,7 @@
 
 
 	<div class="form-group">
-		<label for="sel1">Seleccione empresa:</label> <select
+		<label for="sel1">Seleccione Empresa:</label> <select
 			onchange="traerProyectos()" class="form-control check"
 			id="comboEmpresas">
 			<option value=""></option>
@@ -268,7 +281,7 @@
 
 
 	<div class="form-group" id="divComboProyectos" style="display: none;">
-		<label for="sel1">Select list:</label> <select
+		<label for="sel1">Seleccione Proyecto:</label> <select
 			onchange="traerMaquinas()" class="form-control check"
 			id="comboProyectos">
 
@@ -280,7 +293,7 @@
 
 
 	<div class="form-group" id="divComboMaquina" style="display: none;">
-		<label for="sel1">Select list:</label> 
+		<label for="sel1">Seleccione Maquina:</label> 
 		<select 	onchange="seleccionoMaquina()" class="form-control check"
 			id="comboMaquinas">
 
@@ -298,7 +311,7 @@
 
 
 	<input type="button" id="boton" onclick="formCrearCheckList()"
-		value="Crear Template" class="form-control"
+		value="Crear Template" class="form-control btn btn-primary"
 		aria-describedby="basic-addon1">
 
 

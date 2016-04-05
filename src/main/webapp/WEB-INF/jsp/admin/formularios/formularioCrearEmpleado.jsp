@@ -73,7 +73,7 @@
 		<br>
 
 		<input type="button" onclick="submitForm('formCrearEmpleado')"
-			value="Crear" class="form-control" placeholder="Username"
+			value="Crear" class="form-control btn btn-primary" placeholder="Username"
 			aria-describedby="basic-addon1">
 
 	</form:form>
