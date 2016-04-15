@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.com.mantenimiento.dto.EPPDTO;
 import ar.com.mantenimiento.dto.EmpresaDTO;
 import ar.com.mantenimiento.dto.FormDTO;
+import ar.com.mantenimiento.dto.IdMaquinaDTO;
 import ar.com.mantenimiento.dto.MaquinaDTO;
 import ar.com.mantenimiento.dto.MaquinaProyectoIdDTO;
 import ar.com.mantenimiento.entity.Empresa;
@@ -106,6 +107,7 @@ public class CheckListController {
 		mav.addObject("maquina", maquinaDTO);
 
 		mav.addObject("form", formDTO);
+		mav.addObject("maquinaProyectoIdDTO", new MaquinaProyectoIdDTO());
 
 		return mav;
 

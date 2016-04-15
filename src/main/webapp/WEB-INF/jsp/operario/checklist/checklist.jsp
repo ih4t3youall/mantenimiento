@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -56,34 +57,28 @@
 		$('#example').DataTable();
 	});
 
-	
-	
-	function acomodarFecha(){
+	function acomodarFecha() {
 
 		var fecha = $('#fechaProgramada').html();
 
+		if (fecha != "") {
+			var anio = $('#fechaProgramada').html().slice(0, 4);
+			var mes = $('#fechaProgramada').html().slice(5, 7);
+			var dia = $('#fechaProgramada').html().slice(8, 10);
 
-		if(fecha != ""){
-		var anio = $('#fechaProgramada').html().slice(0,4);
-		var mes =  $('#fechaProgramada').html().slice(5,7);
-		var dia =  $('#fechaProgramada').html().slice(8,10);
-
-
-		$('#fechaProgramada').html(mes+"/"+dia+"/"+anio);
+			$('#fechaProgramada').html(mes + "/" + dia + "/" + anio);
 		}
 	}
-	
+
 	$(document).ready(
 			function() {
 
 				$(document).ready(
 						function() { // Script del Navegador
 							//porque como hay integers me pisa el placeholder con un cero y en el placeholder esta el valor de cada campo
-								
-							
-							acomodarFecha();				
-							
-							
+
+							acomodarFecha();
+
 							$('.form-control').each(function(index, item) {
 
 								//para evitar que le saque el label al ultimo boton
@@ -138,7 +133,7 @@
 		var proyecto = new Object();
 		var empresa = new Object();
 		form.formItems = [];
-		
+
 		form.aptoServicio = $("#aptoServicio").val();
 		maquina.id = parseInt($("#idMaquina").html());
 		empresa.id = $("#idEmpresa").html();
@@ -146,9 +141,8 @@
 		form.fechaRealizacion = $("#fechaRealizacion").val();
 		form.fechaProgramada = $("#fechaProgramada").html();
 		form.observaciones = $("#observaciones2").val();
-		
-		
-		form.empresa =empresa;
+
+		form.empresa = empresa;
 		form.proyecto = proyecto;
 		form.maquina = maquina;
 		$(".fila").each(function(index, item) {
@@ -183,6 +177,10 @@
 
 		});
 
+		$("#refreshMaquina").val($("#idMaquina").html());
+		$("#refreshProyecto").val($("#idProyecto").html());
+		$("#refreshForm").submit();
+
 	}
 
 	var idModal = "";
@@ -192,38 +190,30 @@
 		$('#myModal').modal('show');
 
 	}
-	
-	
-	function modalPdf(){
-		
-		
-		var idMaquina = $("#idMaquina").html();
-		
-		$.ajax({
-			
-			url :"generarPdf.htm",
-			data : "idMaquina="+idMaquina,
-			type : 'GET',
-			success: function (response){
-				
 
-$("#modalPdf").empty();
-$("#modalPdf").append(response);
-var wWidth = $(window).width();
-$("#pdfObject").width(wWidth-200);
-				
+	function modalPdf() {
+
+		var idMaquina = $("#idMaquina").html();
+
+		$.ajax({
+
+			url : "generarPdf.htm",
+			data : "idMaquina=" + idMaquina,
+			type : 'GET',
+			success : function(response) {
+
+				$("#modalPdf").empty();
+				$("#modalPdf").append(response);
+				var wWidth = $(window).width();
+				$("#pdfObject").width(wWidth - 200);
+
 			}
-			
-			
-			
+
 		});
-		
-		
+
 		$('#modalPdf').modal('show');
-		
+
 	}
-	
-	
 
 	function cerrarModalObservaciones(nose) {
 		var observaciones = $("#observaciones").val();
@@ -273,22 +263,25 @@ $("#pdfObject").width(wWidth-200);
 
 		</div>
 	</div>
-<!-- MODAL PDF -->
+	<!-- MODAL PDF -->
 
-<div class="modal fade" id="modalPdf" role="dialog">
-	</div>
-	
-<!-- 	FIN MODAL PDF  -->
+	<div class="modal fade" id="modalPdf" role="dialog"></div>
+
+	<!-- 	FIN MODAL PDF  -->
 
 
 	<div class="row">
 		<div class="col-md-1"></div>
 		<div class="col-md-3">
 			<img width="150px" src="data:image/jpeg;base64,${empresa.urlImagen}" />
-			<span id="idEmpresa" style="display:none;" >${empresa.id}</span>
+			<span id="idEmpresa" style="display: none;">${empresa.id}</span>
 		</div>
 		<div class="col-md-3">
-			<p>CHECK LIST DE MANTENIMIENTO PREVENTIVO ${maquina.nombre}, maquina id <span id="idMaquina">${maquina.id} </span>, proyecto id <span id="idProyecto">${proyecto.id}</span></p>
+			<p>
+				CHECK LIST DE MANTENIMIENTO PREVENTIVO ${maquina.nombre}, maquina id
+				<span id="idMaquina">${maquina.id} </span>, proyecto id <span
+					id="idProyecto">${proyecto.id}</span>
+			</p>
 
 		</div>
 		<div class="col-md-2">
@@ -343,9 +336,9 @@ $("#pdfObject").width(wWidth-200);
 	</div>
 
 	<!-- 	fin separador -->
-	
-<!-- 	modal mostrar pdf -->
-	
+
+	<!-- 	modal mostrar pdf -->
+
 	<div class="row">
 		<div class="col-md-1"></div>
 
@@ -366,7 +359,7 @@ $("#pdfObject").width(wWidth-200);
 
 
 	</div>
-<!-- fin modal mostrar pdf -->
+	<!-- fin modal mostrar pdf -->
 
 	<!-- 	separador -->
 	<div class="row">
@@ -378,9 +371,9 @@ $("#pdfObject").width(wWidth-200);
 	</div>
 
 	<!-- 	fin separador -->
-	
-	
-	
+
+
+
 
 
 	<div class="row">
@@ -690,11 +683,22 @@ $("#pdfObject").width(wWidth-200);
 		</div>
 		<div class="col-md-1"></div>
 	</div>
+	<a href="inicio.htm"><input type="button" value="volver" /></a>
+
+	<!-- form para cambio de pagina -->
+	
+	<form:form id="refreshForm" method="post" modelAttribute="maquinaProyectoIdDTO"
+		action="verSoloMaquinas.htm">
+		<form:input id="refreshMaquina" path="maquinaId" type="text" />
+		<form:input id="refreshProyecto" path="proyectoId" type="text" />
+	</form:form>
+
+	<!-- fin form para cambio de pagina -->
+
 
 	<!-- 	fin separador -->
 
 
-	<a href="inicio.htm"><input type="button" value="volver" /></a>
 
 </body>
 </html>
