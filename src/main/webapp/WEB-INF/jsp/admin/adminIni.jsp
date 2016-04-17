@@ -20,9 +20,12 @@
 
 <!-- notify  -->
 
-<script src="<c:url value='/static/bootstrap-notify/bootstrap-notify.js' />"></script>
-<script src="<c:url value='/static/bootstrap-notify/bootstrap-notify.min.js' />"></script>
-<link rel="stylesheet" href="<c:url value='/static/bootstrap-notify/animate.css' />">
+<script
+	src="<c:url value='/static/bootstrap-notify/bootstrap-notify.js' />"></script>
+<script
+	src="<c:url value='/static/bootstrap-notify/bootstrap-notify.min.js' />"></script>
+<link rel="stylesheet"
+	href="<c:url value='/static/bootstrap-notify/animate.css' />">
 
 
 
@@ -88,71 +91,57 @@
 
 			});
 
-	
 	function editarFormularioSubmit() {
 
 		var items = [];
 
+		$(".campoTexto").each(function(index, data) {
 
-		$(".campoTexto").each(function(index,data){
-
-		  
-		  
-		  var item =  new Object();
-		  item.label= $(data).val().trim();
-		  item.idformItem=$(data).attr("id").trim();
-		  if(item.label != ""){
-		  items.push(item);
-		  }
-		  
+			var item = new Object();
+			item.label = $(data).val().trim();
+			item.idformItem = $(data).attr("id").trim();
+			if (item.label != "") {
+				items.push(item);
+			}
 
 		});
-		
-		 var toServer = JSON.stringify(items);
-		
+
+		var toServer = JSON.stringify(items);
+
 		$.ajax({
-			
+
 			url : "submitFormEditarFormulario.htm",
-			type :"GET",
-			data : "formItems="+toServer+"&maquinaId="+$("#maquinaId").html().trim(),
-			success:function(response){
-				
-				
+			type : "GET",
+			data : "formItems=" + toServer + "&maquinaId="
+					+ $("#maquinaId").html().trim(),
+			success : function(response) {
+
 				$('#contenedor').empty();
 				$('#contenedor').append(response);
 			}
-			
-			
+
 		});
 
-
-		
 	}
-	
-	
-	function editarCheckList(){
+
+	function editarCheckList() {
 		var idMaquina = $('#comboMaquinas').val();
 		$.ajax({
-			
+
 			url : "formEditarFormulario.htm",
 			type : "GET",
-			data : "idMaquina="+idMaquina,
-			success:function(data){
-				
+			data : "idMaquina=" + idMaquina,
+			success : function(data) {
+
 				$('#contenedor').empty();
 				$('#contenedor').append(data);
-				
+
 			}
-		
-			
-			
+
 		});
-		
-		
-		
+
 	}
-	
-	
+
 	function cambio() {
 
 		var id = $('#nombreEmpleado').val();
@@ -209,10 +198,10 @@
 			//alert('debe completar todos los campos');
 			$.notify({
 				// options
-				message: 'Todos los campos son obligatorios.' 
-			},{
+				message : 'Todos los campos son obligatorios.'
+			}, {
 				// settings
-				type: 'danger'
+				type : 'danger'
 			});
 		}
 
@@ -254,7 +243,7 @@
 
 				url : "getTemplateFormulario.htm",
 				type : "GET",
-				data : "idMaquina="+idMaquina,
+				data : "idMaquina=" + idMaquina,
 				success : function(response) {
 					$('#contenedor').empty();
 					$('#contenedor').append(response);
@@ -304,9 +293,10 @@ li {
 				<li role="presentation" class="active "><a href="#"
 					class="desplegable" title="Venta">Usuario</a>
 					<ul class="subnavegador ">
-						<!-- 						<li role="presentation" class="active"><a href="#" title="Aparcamientos">Cambiar Contraseña</a></li> -->
+						
 						<li role="presentation">
-							<button type="button" class="btn btn-default btn-sm">
+							<button type="button" class="btn btn-default btn-sm"
+								onClick="getForm('formCambiarContrasenia.htm')">	
 								<span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span>
 								Cambiar Contraseña
 							</button>
@@ -331,21 +321,20 @@ li {
 								Empleado</a></li>
 
 					</ul></li>
-					
-					
-					<li><a class="desplegable" href="#" title="Alquiler">Clientes</a>
+
+
+				<li><a class="desplegable" href="#" title="Alquiler">Clientes</a>
 					<ul class="subnavegador">
-						
+
 						<li role="presentation"><a href="#" title="Viviendas"
-							onClick="getForm('formAsignarCliente.htm')">Asignar cliente
-						</a></li>
+							onClick="getForm('formAsignarCliente.htm')">Asignar cliente </a></li>
 						<li role="presentation"><a href="#" title="Viviendas"
 							onClick="getForm('formDesAsignarEmpleado.htm')">Des-asignar
 								cliente</a></li>
 
 					</ul></li>
-					
-					
+
+
 
 
 				<li><a class="desplegable" href="#" title="Alquiler">Formularios</a>
@@ -357,54 +346,41 @@ li {
 							onClick="getForm('templateFormulario.htm')">Crear check list
 						</a></li>
 						<li role="presentation"><a href="#" title="Viviendas"
-							onClick="getForm('editarFormulario.htm')">Editar formulario
-						</a></li>
+							onClick="getForm('editarFormulario.htm')">Editar formulario </a></li>
 
 					</ul></li>
 
 				<li><a class="desplegable" href="#" title="Alquiler">Maquinas</a>
 					<ul class="subnavegador">
-						<li role="presentation"><a
-							 href="#" title="Viviendas"
+						<li role="presentation"><a href="#" title="Viviendas"
 							onClick="getForm('formCrearMaquina.htm')">Crear Maquina</a></li>
 
 					</ul></li>
-					
-					
-					<li><a class="desplegable" href="#" title="Alquiler">Empresa</a>
+
+
+				<li><a class="desplegable" href="#" title="Alquiler">Empresa</a>
 					<ul class="subnavegador">
-						<li role="presentation"><a
-							 href="#" title="Viviendas"
+						<li role="presentation"><a href="#" title="Viviendas"
 							onClick="getForm('formCrearEmpresa.htm')">Crear Empresa</a></li>
 
 					</ul></li>
-					
-					<li><a class="desplegable" href="#" title="Alquiler">Proyecto</a>
+
+				<li><a class="desplegable" href="#" title="Alquiler">Proyecto</a>
 					<ul class="subnavegador">
-						<li role="presentation"><a
-							 href="#" title="Viviendas"
+						<li role="presentation"><a href="#" title="Viviendas"
 							onClick="getForm('formCrearProyecto.htm')">Crear Proyecto</a></li>
 
 					</ul></li>
-					
-					
-					
-<!-- 					<li><a class="desplegable" href="#" title="Alquiler">EPP</a> -->
-<!-- 					<ul class="subnavegador"> -->
-<!-- 						<li role="presentation"><a -->
-<!-- 							 href="#" title="Viviendas" -->
-<!-- 							onClick="getForm('formAgregarEPP.htm')" -->
-<!-- 							>Agregar EPP</a></li> -->
 
-<!-- 					</ul></li> -->
-	<li><a class="desplegable" href="#" title="Alquiler">EPP</a>
+
+
+				<li><a class="desplegable" href="#" title="Alquiler">EPP</a>
 					<ul class="subnavegador">
-						<li role="presentation"><a
-							 href="#" title="Viviendas"
+						<li role="presentation"><a href="#" title="Viviendas"
 							onClick="getForm('formAgregarEPP.htm')">Agregar epp</a></li>
 
 					</ul></li>
-					
+
 
 
 

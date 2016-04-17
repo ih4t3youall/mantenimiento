@@ -7,10 +7,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import ar.com.mantenimiento.springsecurity.model.User;
 
 public abstract class AbstractDao<PK extends Serializable, T> {
 
@@ -34,6 +31,7 @@ public abstract class AbstractDao<PK extends Serializable, T> {
 		return (T) getSession().get(persistentClass, key);
 	}
 
+	@SuppressWarnings({ "hiding", "unchecked" })
 	public <T> List<T> getAll(Class<T> clazz) {
 		Session session = getSession();
 		Criteria criteria = session.createCriteria(clazz);

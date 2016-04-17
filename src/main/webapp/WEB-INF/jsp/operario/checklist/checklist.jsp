@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -56,34 +57,28 @@
 		$('#example').DataTable();
 	});
 
-	
-	
-	function acomodarFecha(){
+	function acomodarFecha() {
 
 		var fecha = $('#fechaProgramada').html();
 
+		if (fecha != "") {
+			var anio = $('#fechaProgramada').html().slice(0, 4);
+			var mes = $('#fechaProgramada').html().slice(5, 7);
+			var dia = $('#fechaProgramada').html().slice(8, 10);
 
-		if(fecha != ""){
-		var anio = $('#fechaProgramada').html().slice(0,4);
-		var mes =  $('#fechaProgramada').html().slice(5,7);
-		var dia =  $('#fechaProgramada').html().slice(8,10);
-
-
-		$('#fechaProgramada').html(mes+"/"+dia+"/"+anio);
+			$('#fechaProgramada').html(mes + "/" + dia + "/" + anio);
 		}
 	}
-	
+
 	$(document).ready(
 			function() {
 
 				$(document).ready(
 						function() { // Script del Navegador
 							//porque como hay integers me pisa el placeholder con un cero y en el placeholder esta el valor de cada campo
-								
-							
-							acomodarFecha();				
-							
-							
+
+							acomodarFecha();
+
 							$('.form-control').each(function(index, item) {
 
 								//para evitar que le saque el label al ultimo boton
@@ -131,6 +126,8 @@
 
 			});
 
+
+
 	function submitForm() {
 
 		var form = new Object();
@@ -138,7 +135,7 @@
 		var proyecto = new Object();
 		var empresa = new Object();
 		form.formItems = [];
-		
+
 		form.aptoServicio = $("#aptoServicio").val();
 		maquina.id = parseInt($("#idMaquina").html());
 		empresa.id = $("#idEmpresa").html();
@@ -146,9 +143,8 @@
 		form.fechaRealizacion = $("#fechaRealizacion").val();
 		form.fechaProgramada = $("#fechaProgramada").html();
 		form.observaciones = $("#observaciones2").val();
-		
-		
-		form.empresa =empresa;
+		form.noConformidad=$("#noConformidad").val();
+		form.empresa = empresa;
 		form.proyecto = proyecto;
 		form.maquina = maquina;
 		$(".fila").each(function(index, item) {
@@ -177,11 +173,15 @@
 			data : "form=" + sendable,
 			success : function(data) {
 
-				console.log("volvi");
+		 		$("#refreshMaquina").val($("#idMaquina").html());
+		 		$("#refreshProyecto").val($("#idProyecto").html());
+		 		$("#refreshForm").submit();
 
 			}
 
 		});
+
+
 
 	}
 
@@ -192,38 +192,30 @@
 		$('#myModal').modal('show');
 
 	}
-	
-	
-	function modalPdf(){
-		
-		
-		var idMaquina = $("#idMaquina").html();
-		
-		$.ajax({
-			
-			url :"generarPdf.htm",
-			data : "idMaquina="+idMaquina,
-			type : 'GET',
-			success: function (response){
-				
 
-$("#modalPdf").empty();
-$("#modalPdf").append(response);
-var wWidth = $(window).width();
-$("#pdfObject").width(wWidth-200);
-				
+	function modalPdf() {
+
+		var idMaquina = $("#idMaquina").html();
+
+		$.ajax({
+
+			url : "generarPdf.htm",
+			data : "idMaquina=" + idMaquina,
+			type : 'GET',
+			success : function(response) {
+
+				$("#modalPdf").empty();
+				$("#modalPdf").append(response);
+				var wWidth = $(window).width();
+				$("#pdfObject").width(wWidth - 200);
+
 			}
-			
-			
-			
+
 		});
-		
-		
+
 		$('#modalPdf').modal('show');
-		
+
 	}
-	
-	
 
 	function cerrarModalObservaciones(nose) {
 		var observaciones = $("#observaciones").val();
@@ -231,6 +223,24 @@ $("#pdfObject").width(wWidth-200);
 		$('#myModal').modal('hide');
 
 	}
+	
+	function noConformidad() {
+
+		if ($("#aptoServicio").val() == "false") {
+			$('#modalConformidad').modal('show');
+			$("#editarConformidad").show();
+		}
+
+	}
+	
+	function cerrarModalNoConformidad() {
+		var noConformidad = $("#noConformidad").val();
+		//ver como se va a guardar FIXME
+		$('#modalConformidad').modal('hide');
+
+	}
+	
+	
 </script>
 
 <style type="text/css">
@@ -273,22 +283,62 @@ $("#pdfObject").width(wWidth-200);
 
 		</div>
 	</div>
-<!-- MODAL PDF -->
+	<!-- MODAL PDF -->
 
-<div class="modal fade" id="modalPdf" role="dialog">
-	</div>
+	<div class="modal fade" id="modalPdf" role="dialog"></div>
+
+	<!-- 	FIN MODAL PDF  -->
 	
-<!-- 	FIN MODAL PDF  -->
+		<!-- MODAL NO CONFORMIDAD -->
+
+	<div class="modal fade" id="modalConformidad" role="dialog">
+	
+	<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Nota de no conformidad</h4>
+				</div>
+				<div class="modal-body">
+
+					<div class="form-group">
+						<textarea class="form-control" rows="5" id="noConformidad"></textarea>
+					
+					</div>
+
+
+				</div>
+				<div class="modal-footer">
+				
+				<div class="form-group">
+					<button class="btn btn-secondary" type="button"
+							onClick="cerrarModalNoConformidad()">Aceptar</button>
+				</div>
+				
+				</div>
+			</div>
+
+		</div>
+	
+	</div>
+
+	<!-- 	FIN MODAL NO CONFORMIDAD  -->
 
 
 	<div class="row">
 		<div class="col-md-1"></div>
 		<div class="col-md-3">
 			<img width="150px" src="data:image/jpeg;base64,${empresa.urlImagen}" />
-			<span id="idEmpresa" style="display:none;" >${empresa.id}</span>
+			<span id="idEmpresa" style="display: none;">${empresa.id}</span>
 		</div>
 		<div class="col-md-3">
-			<p>CHECK LIST DE MANTENIMIENTO PREVENTIVO ${maquina.nombre}, maquina id <span id="idMaquina">${maquina.id} </span>, proyecto id <span id="idProyecto">${proyecto.id}</span></p>
+			<p>
+				CHECK LIST DE MANTENIMIENTO PREVENTIVO ${maquina.nombre}, maquina id
+				<span id="idMaquina">${maquina.id} </span>, proyecto id <span
+					id="idProyecto">${proyecto.id}</span>
+			</p>
 
 		</div>
 		<div class="col-md-2">
@@ -343,9 +393,9 @@ $("#pdfObject").width(wWidth-200);
 	</div>
 
 	<!-- 	fin separador -->
-	
-<!-- 	modal mostrar pdf -->
-	
+
+	<!-- 	modal mostrar pdf -->
+
 	<div class="row">
 		<div class="col-md-1"></div>
 
@@ -366,7 +416,7 @@ $("#pdfObject").width(wWidth-200);
 
 
 	</div>
-<!-- fin modal mostrar pdf -->
+	<!-- fin modal mostrar pdf -->
 
 	<!-- 	separador -->
 	<div class="row">
@@ -378,9 +428,9 @@ $("#pdfObject").width(wWidth-200);
 	</div>
 
 	<!-- 	fin separador -->
-	
-	
-	
+
+
+
 
 
 	<div class="row">
@@ -391,13 +441,13 @@ $("#pdfObject").width(wWidth-200);
 			<label>Numero de interno</label>
 
 		</div>
-		<div class="col-md-2">aca se escribe nro interno</div>
+		<div class="col-md-2">${form.nroInterno}</div>
 
 		<div class="col-md-3">
 			<label>Numero de Orden</label>
 		</div>
 		<div class="col-md-2">
-			<label>aca se escribe el nuemro de orden</label>
+			<label>${form.nroOrden}</label>
 		</div>
 
 
@@ -643,11 +693,14 @@ $("#pdfObject").width(wWidth-200);
 
 		<div class="col-md-2">
 
-			<select id="aptoServicio">
+			<select id="aptoServicio" onChange="noConformidad()">
 				<option value="true">si</option>
 				<option value="false">no</option>
 
 			</select>
+			
+			
+			
 
 		</div>
 
@@ -657,6 +710,42 @@ $("#pdfObject").width(wWidth-200);
 
 
 	</div>
+	
+	<!-- 	separador -->
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			<hr>
+		</div>
+		<div class="col-md-1"></div>
+	</div>
+
+	<!-- 	fin separador -->
+
+	<div class="row">
+		<div class="col-md-1"></div>
+
+
+		<div class="col-md-4">
+
+
+		</div>
+		<div class="col-md-4">
+
+
+		</div>
+
+		<div class="col-md-2">
+					<button type="submit" onCLick="noConformidad()" id="editarConformidad" class="btn btn-default" style="display: none;">Editar Modal</button>
+		</div>
+
+
+		<div class="col-md-1"></div>
+
+
+
+	</div>
+	
 
 	<!-- 	boton enviar -->
 
@@ -690,11 +779,23 @@ $("#pdfObject").width(wWidth-200);
 		</div>
 		<div class="col-md-1"></div>
 	</div>
+	<a href="inicio.htm"><input type="button" value="volver" /></a>
+
+	<!-- form para cambio de pagina -->
+
+	<form:form id="refreshForm" method="post"
+		modelAttribute="maquinaProyectoIdDTO" action="verSoloMaquinas.htm"
+		style="display: none;">
+		<form:input id="refreshMaquina" path="maquinaId" type="text" />
+		<form:input id="refreshProyecto" path="proyectoId" type="text" />
+	</form:form>
+
+	<!-- fin form para cambio de pagina -->
+
 
 	<!-- 	fin separador -->
 
 
-	<a href="inicio.htm"><input type="button" value="volver" /></a>
 
 </body>
 </html>

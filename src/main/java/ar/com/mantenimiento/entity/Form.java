@@ -9,18 +9,17 @@ import org.hibernate.annotations.CascadeType;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the form database table.
  * 
  */
 @Entity
-@NamedQuery(name="Form.findAll", query="SELECT f FROM Form f")
+@NamedQuery(name = "Form.findAll", query = "SELECT f FROM Form f")
 public class Form implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idForm;
 
 	private String conclusion;
@@ -28,32 +27,34 @@ public class Form implements Serializable {
 	private String equipo;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_programada")
+	@Column(name = "fecha_programada")
 	private Date fechaProgramada;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_realizacion")
+	@Column(name = "fecha_realizacion")
 	private Date fechaRealizacion;
 
-	@Column(name="nro_interno")
+	@Column(name = "nro_interno")
 	private int nroInterno;
 
-	@Column(name="nro_orden")
+	@Column(name = "nro_orden")
 	private int nroOrden;
 
 	private String observaciones;
+	
 
-	//bi-directional many-to-one association to Maquina
+	
+
+	// bi-directional many-to-one association to Maquina
 	@ManyToOne
 	@Cascade({ CascadeType.SAVE_UPDATE, CascadeType.DELETE })
 	private Maquina maquina;
 
-	
 	@OneToMany
 	private List<FormHasEpp> formHasEpps;
 
-	//bi-directional many-to-one association to FormItem
-	@OneToMany(mappedBy="form")
+	// bi-directional many-to-one association to FormItem
+	@OneToMany(mappedBy = "form")
 	@Cascade({ CascadeType.SAVE_UPDATE, CascadeType.DELETE })
 	private List<FormItem> formItems;
 
@@ -140,7 +141,6 @@ public class Form implements Serializable {
 		this.formHasEpps = formHasEpps;
 	}
 
-
 	public List<FormItem> getFormItems() {
 		return this.formItems;
 	}
@@ -162,5 +162,9 @@ public class Form implements Serializable {
 
 		return formItem;
 	}
+
+	
+	
+
 
 }

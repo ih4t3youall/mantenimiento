@@ -161,8 +161,6 @@ public class AdminController {
 	public ModelAndView guardarArchivo(@RequestParam("file") MultipartFile file, @RequestParam("nombre") String nombre,
 			@RequestParam("descripcion") String descripcion) throws IOException {
 		String url = UPLOAD_LOCATION + file.getOriginalFilename();
-		File archivo = new File(url);
-
 		ModelAndView mav = new ModelAndView("admin/exito/exito");
 		mav.addObject("mensaje", "EPP cargado con exito!");
 		return mav;
@@ -175,7 +173,7 @@ public class AdminController {
 	// submit del segundo formulario
 	@RequestMapping("admin/submitTemplateFormulario.htm")
 	public @ResponseBody ModelAndView submitTemplateFormulario(String camposFormulario, int idMaquina,
-			String[] eppOpcional, String[] eppObligatorio, String fechaProgramada) {
+			String[] eppOpcional, String[] eppObligatorio, String fechaProgramada,String numeroOrden,String numeroInterno) {
 
 		ModelAndView mav = new ModelAndView("admin/exito/formularioCreadoConExtio");
 
@@ -184,7 +182,7 @@ public class AdminController {
 		FormItem[] formItems = gsonUtility.getGson().fromJson(camposFormulario, FormItem[].class);
 		
 		Form form = formDAO.findFormByMaquinaId(idMaquina);
-
+		
 		if (form != null) {
 
 			populateFormItems(formItems, form);
@@ -208,7 +206,9 @@ public class AdminController {
 		Maquina maquina = maquinaDAO.findMaquinaById(idMaquina);
 		form.setMaquina(maquina);
 		form.setFechaProgramada(FechaUtility.deStringToDateUs(fechaProgramada));
-
+		form.setNroInterno(Integer.parseInt(numeroInterno));
+		form.setNroOrden(Integer.parseInt(numeroOrden));
+		
 		formDAO.persist(form);
 
 		List<FormHasEpp> formHasEpps = new ArrayList<FormHasEpp>();

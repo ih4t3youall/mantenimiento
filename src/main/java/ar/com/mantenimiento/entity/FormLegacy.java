@@ -32,6 +32,8 @@ public class FormLegacy {
 	private int idMaquina;
 	private boolean aptoServicio;
 	private String observaciones;
+	private String noConformidad;
+	
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_programada")
@@ -62,6 +64,20 @@ public class FormLegacy {
 	
 	
 	
+	public String getNoConformidad() {
+		return noConformidad;
+	}
+
+
+
+
+	public void setNoConformidad(String noConformidad) {
+		this.noConformidad = noConformidad;
+	}
+
+
+
+
 	public Date getFechaProgramada() {
 		return fechaProgramada;
 	}

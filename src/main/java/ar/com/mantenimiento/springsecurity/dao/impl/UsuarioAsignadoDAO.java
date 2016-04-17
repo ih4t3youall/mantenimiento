@@ -7,7 +7,6 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import ar.com.mantenimiento.entity.Empresa;
 import ar.com.mantenimiento.entity.Proyecto;
 import ar.com.mantenimiento.entity.UsuarioAsignado;
 import ar.com.mantenimiento.springsecurity.dao.AbstractDao;
@@ -43,6 +42,17 @@ public class UsuarioAsignadoDAO extends AbstractDao<Integer, UsuarioAsignado>  i
 		return proyectos;
 		
 		
+		
+	}
+	
+	
+	@Override
+	public UsuarioAsignado findUsuarioAsignado(String sso_id){
+		
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("ssoId", sso_id));
+		UsuarioAsignado lista=  (UsuarioAsignado)crit.uniqueResult();	
+		return lista;
 		
 	}
 

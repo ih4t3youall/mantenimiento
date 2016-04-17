@@ -64,11 +64,133 @@ $(document).ready(
 									desplegable.slideToggle('slow');
 									e.preventDefault();
 								})
+								
+								
+
+								
 					});
 
 		});
+		
+		
+
+$(document).ready(
+		function() {
+			getForm("getEmpresas.htm");			
+			
+		});
 
 
+function getForm(url) {
+
+	$.ajax({
+		url : url,
+		type : 'GET',
+		success : function(response) {
+			$('#contenedor').empty();
+			$('#contenedor').append(response);
+
+		},
+		error : function() {
+			alert("Ha ocurrido un error");
+		}
+	});
+
+}
+
+function validarCamposNoVacios() {
+
+	var flag = true;
+
+	$('.form-control').each(function(index, item) {
+
+		if ($(item).val() == "") {
+
+			flag = false;
+		}
+
+	});
+
+	return flag;
+
+}
+
+function submitForm(form) {
+
+	var validado = validarCamposNoVacios();
+
+	if (validado) {
+		$("#" + form).submit();
+
+	} else {
+
+		//alert('debe completar todos los campos');
+		$.notify({
+			// options
+			message : 'Todos los campos son obligatorios.'
+		}, {
+			// settings
+			type : 'danger'
+		});
+	}
+
+}
+
+
+function getForm(url) {
+
+	$.ajax({
+		url : url,
+		type : 'GET',
+		success : function(response) {
+			$('#contenedor').empty();
+			$('#contenedor').append(response);
+
+		},
+		error : function() {
+			alert("Ha ocurrido un error");
+		}
+	});
+
+}
+
+function validarCamposNoVacios() {
+
+	var flag = true;
+
+	$('.form-control').each(function(index, item) {
+
+		if ($(item).val() == "") {
+
+			flag = false;
+		}
+
+	});
+
+	return flag;
+
+}
+
+function submitForm(form) {
+
+	var validado = validarCamposNoVacios();
+
+	if (validado) {
+		$("#" + form).submit();
+
+	} else {
+
+		//alert('debe completar todos los campos');
+		$.notify({
+			// options
+			message : 'Todos los campos son obligatorios.'
+		}, {
+			// settings
+			type : 'danger'
+		});
+	}
+
+}
 
 	function submit(id) {
 		
@@ -111,7 +233,7 @@ li {
 
 
 	<div class="row">
-
+<div class="col-md-1"></div>
 		<div class="col-md-2">
 		
 					<ul class="nav nav-pills nav-stacked navegador">
@@ -120,7 +242,7 @@ li {
 					<ul class="subnavegador ">
 <!-- 						<li role="presentation" class="active"><a href="#" title="Aparcamientos">Cambiar Contraseña</a></li> -->
 						<li role="presentation" >
-<button type="button" class="btn btn-default btn-sm">
+<button type="button" class="btn btn-default btn-sm" onClick="getForm('formCambiarContrasenia.htm')">
   <span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span> Cambiar Contraseña
 </button>
 
@@ -145,47 +267,47 @@ li {
 		
 		</div>
 
+<div class="col-md-9">
+
+<div id="contenedor" ></div>
+</div>
+
+<!-- 		<div class="col-md-4"> -->
+<%-- 			<c:forEach items="${columnaA}" var="empresa"> --%>
+
+<!-- 				<div style="cursor: pointer; cursor: hand" -->
+<!-- 					class="panel panel-primary"> -->
+<%-- 					<div class="panel-heading">${empresa.nombre}</div> --%>
+<!-- 					<div class="panel-body"> -->
+<%-- 						<img onclick="submit('${empresa.id}')" height="125px" width="200px" alt="" --%>
+<%-- 							src="data:image/jpeg;base64,${empresa.urlImagen}"> --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
+
+<%-- 			</c:forEach> --%>
 
 
 
+<!-- 		</div> -->
 
+<!-- 		<div class="col-md-4"> -->
+<%-- 			<c:forEach items="${columnaB}" var="empresa"> --%>
 
-		<div class="col-md-4">
-			<c:forEach items="${columnaA}" var="empresa">
+<!-- 				<div style="cursor: pointer; cursor: hand" -->
+<!-- 					class="panel panel-primary"> -->
+<%-- 					<div class="panel-heading">${empresa.nombre}</div> --%>
+<!-- 					<div class="panel-body"> -->
+<%-- 						<img onclick="submit('${empresa.id}')" --%>
+<%-- 							height="125px" width="200px" alt="" src="${empresa.urlImagen}"> --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
 
-				<div style="cursor: pointer; cursor: hand"
-					class="panel panel-primary">
-					<div class="panel-heading">${empresa.nombre}</div>
-					<div class="panel-body">
-						<img onclick="submit('${empresa.id}')" height="125px" width="200px" alt=""
-							src="data:image/jpeg;base64,${empresa.urlImagen}">
-					</div>
-				</div>
-
-			</c:forEach>
-
-
-
-		</div>
-
-		<div class="col-md-4">
-			<c:forEach items="${columnaB}" var="empresa">
-
-				<div style="cursor: pointer; cursor: hand"
-					class="panel panel-primary">
-					<div class="panel-heading">${empresa.nombre}</div>
-					<div class="panel-body">
-						<img onclick="submit('${empresa.id}')"
-							height="125px" width="200px" alt="" src="${empresa.urlImagen}">
-					</div>
-				</div>
-
-			</c:forEach>
+<%-- 			</c:forEach> --%>
 
 
 
-		</div>
-		<div class="col-md-1"></div>
+<!-- 		</div> -->
+<!-- 		<div class="col-md-1"></div> -->
 
 
 	</div>

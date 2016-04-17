@@ -307,6 +307,8 @@
 			var send = JSON.stringify(enviar);
 
 			$("#frmAlta").submit();
+			var numeroInterno = $("#numeroInterno").val();
+			var numeroOrden = $("#numeroOrden").val();
 			
 			$.ajax({
 
@@ -315,7 +317,7 @@
 				data : "camposFormulario=" + send + "&idMaquina=" + maquina
 						+ "&eppOpcional=" + eppOpcional + "&eppObligatorio="
 						+ eppObligatorio + "&fechaProgramada="
-						+ fechaProgramada,
+						+ fechaProgramada+"&numeroOrden="+numeroOrden+"&numeroInterno="+numeroInterno,
 				success : function(response) {
 
 					getForm('templateFormulario.htm');
@@ -331,17 +333,6 @@
 		}
 	}
 
-	function asignarEPP() {
-
-	}
-
-	function marcarObligatorio() {
-
-	}
-
-	function marcarOpcional() {
-
-	}
 
 	function setSelected(id){
 
@@ -468,42 +459,6 @@
 	
 	
 	
-// 	function setSelected(id){
-		
-// 		$(id).addClass("active")
-		
-	
-
-// bind the on-change event
-// $(document).ready(function() {
-//   $("#upload-file-input").on("change", uploadFile);
-// });
-
-/**
- * Upload the file sending it via Ajax at the Spring Boot server.
- */
-// function uploadFile() {
-//   $.ajax({
-//     url: "uploadFile",
-//     type: "POST",
-//     data: new FormData($("#upload-file-form")[0]),
-//     enctype: 'multipart/form-data',
-//     processData: false,
-//     contentType: false,
-//     cache: false,
-//     success: function () {
-//       // Handle upload success
-//       // ...
-//     },
-//     error: function () {
-//       // Handle upload error
-//       // ...
-//     }
-//   });
-// } // function uploadFile
-
-		
-// 	}
 </script>
 </head>
 <body>
@@ -579,6 +534,7 @@
 
 
 
+
 	<br>
 	<div id="eppOpcional">
 		<label>EPP Opcional</label>
@@ -597,6 +553,24 @@
 		eliminar EPP 
 	</button>
 
+
+	<div id="numeroInternoDiv">
+	<div class="form-group">
+				<label for="usr">Ingrese Numero de interno:</label> <input
+					type="text" class="form-control customInput "
+					id="numeroInterno" value="" >
+			</div>
+	</div>
+	
+	
+	<div id="numeroOrdenDiv">
+	<div class="form-group">
+				<label for="usr">Ingrese Numero de orden:</label> <input
+					type="text" class="form-control customInput "
+					id="numeroOrden" value="" >
+			</div>
+	</div>
+	
 
 
 

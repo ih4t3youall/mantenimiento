@@ -67,6 +67,8 @@
 
 			});
 
+	
+	
 	function volver() {
 		cambiarTituloProyecto();
 		$('#contenedorSecundario').hide();
@@ -86,9 +88,68 @@
 		$('#copete').html("Seleccione maquina a editar");
 
 	}
+	
+	function getForm(url) {
+
+		$.ajax({
+			url : url,
+			type : 'GET',
+			success : function(response) {
+				$('#contenedor').empty();
+				$('#contenedor').append(response);
+
+			},
+			error : function() {
+				alert("Ha ocurrido un error");
+			}
+		});
+
+	}
+	
+	function validarCamposNoVacios() {
+
+		var flag = true;
+
+		$('.form-control').each(function(index, item) {
+
+			if ($(item).val() == "") {
+
+				flag = false;
+			}
+
+		});
+
+		return flag;
+
+	}
+	
+	function submitForm(form) {
+
+		var validado = validarCamposNoVacios();
+
+		if (validado) {
+			$("#" + form).submit();
+
+		} else {
+
+			//alert('debe completar todos los campos');
+			$.notify({
+				// options
+				message : 'Todos los campos son obligatorios.'
+			}, {
+				// settings
+				type : 'danger'
+			});
+		}
+
+	}
+
+
+	
+	
 
 	function maquinas(idProyecto) {
-		
+
 		$.ajax({
 			url : "proyectos.htm",
 			type : 'GET',
@@ -110,10 +171,9 @@
 </script>
 
 <style type="text/css">
-
-
- li {list-style:none;}
-
+li {
+	list-style: none;
+}
 </style>
 
 </head>
@@ -138,26 +198,26 @@
 				<li role="presentation" class="active "><a href="#"
 					class="desplegable" title="Venta">Usuario</a>
 					<ul class="subnavegador ">
-<!-- 						<li role="presentation" class="active"><a href="#" title="Aparcamientos">Cambiar Contraseña</a></li> -->
-						<li role="presentation" >
-<button type="button" class="btn btn-default btn-sm">
-  <span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span> Cambiar Contraseña
-</button>
-
-
-</li>
+						
 						<li role="presentation">
-<a href="<c:url value='/logout' />"><button
+							<button type="button" class="btn btn-default btn-sm" onClick="getForm('formCambiarContrasenia.htm')">
+								<span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span>
+								Cambiar Contraseña
+							</button>
+
+
+						</li>
+						<li role="presentation"><a href="<c:url value='/logout' />"><button
 									type="button" class="btn btn-default btn-sm">
 									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 									Deslogearse
-								</button></a>
-
-</li>
+								</button></a></li>
 					</ul></li>
-				<li><a class="desplegable" href="#" title="Alquiler">Mas Opciones</a>
+				<li><a class="desplegable" href="#" title="Alquiler">Mas
+						Opciones</a>
 					<ul class="subnavegador">
-						<li role="presentation"><a href="#" title="Viviendas">Todavia mas</a></li>
+						<li role="presentation"><a href="#" title="Viviendas">Todavia
+								mas</a></li>
 					</ul></li>
 			</ul>
 

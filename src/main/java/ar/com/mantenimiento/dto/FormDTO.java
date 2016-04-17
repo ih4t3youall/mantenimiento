@@ -36,6 +36,18 @@ public class FormDTO {
 	private Proyecto proyecto;
 
 	private Empresa empresa;
+	
+	private String noConformidad;
+	
+	
+
+	public String getNoConformidad() {
+		return noConformidad;
+	}
+
+	public void setNoConformidad(String noConformidad) {
+		this.noConformidad = noConformidad;
+	}
 
 	public Empresa getEmpresa() {
 		return empresa;

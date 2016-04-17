@@ -9,6 +9,8 @@ public interface IUsuarioAsignadoDAO {
 
 
 	List<Proyecto> findAssignamentsFromUser(String nombreEmpleado);
+
+	UsuarioAsignado findUsuarioAsignado(String sso_id);
 	
 
 	

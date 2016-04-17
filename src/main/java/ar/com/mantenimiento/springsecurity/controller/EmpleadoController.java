@@ -20,9 +20,7 @@ import ar.com.mantenimiento.entity.Proyecto;
 import ar.com.mantenimiento.entity.UsuarioAsignado;
 import ar.com.mantenimiento.springsecurity.dao.impl.EmpresaDAO;
 import ar.com.mantenimiento.springsecurity.dao.impl.ProyectoDAO;
-import ar.com.mantenimiento.springsecurity.dao.impl.ProyectoHasUsuarioAsignadoDAO;
 import ar.com.mantenimiento.springsecurity.dao.impl.UserDao;
-import ar.com.mantenimiento.springsecurity.dao.impl.UserProfileDAO;
 import ar.com.mantenimiento.springsecurity.dao.impl.UsuarioAsignadoDAO;
 import ar.com.mantenimiento.springsecurity.model.User;
 import ar.com.mantenimiento.utility.GsonUtility;
@@ -40,9 +38,6 @@ public class EmpleadoController {
 	@Autowired
 	private UserDao userDAO;
 	
-	@Autowired
-	private UserProfileDAO userProfileDAO;
-	
 	@Autowired 
 	private GsonUtility gsonUtility;
 	
@@ -52,10 +47,7 @@ public class EmpleadoController {
 	@Autowired
 	private Mapper dozerMapper;
 	
-	@Autowired
-	private ProyectoHasUsuarioAsignadoDAO ProyectoHasUsuarioAsignadoDAO;
-	
-	
+
 	
 	
 	
@@ -65,8 +57,8 @@ public class EmpleadoController {
 	public ModelAndView agregarEmpleado(CrearEmpleadoDTO empleadoDTO) {
 
 		
+				
 	
-		
 		
 		userDAO.crearUsuario(empleadoDTO);
 		
@@ -123,31 +115,52 @@ public class EmpleadoController {
 	public ModelAndView asignarEmpleado(AsociacionEmpleadoProyecto asociacion){
 		
 		ModelAndView mav = new ModelAndView("admin/exito/asociacionExitosa");
+		UsuarioAsignado usAsig =null;
+		UsuarioAsignado findUsuarioAsignado = usuarioAsignadoDAO.findUsuarioAsignado(asociacion.getNombreEmpleado());
 		
 		
-		Proyecto proyecto = proyectoDAO.findProyectoByProyectId(asociacion.getIdProyecto());
-		User findBySSO = userDAO.findBySSO(asociacion.getNombreEmpleado());
+		if(findUsuarioAsignado != null){
 		
-		UsuarioAsignado usAsig = new UsuarioAsignado();
-		
-		
-		
-		usAsig.addProyecto(proyecto);
-		usAsig.setSsoId(asociacion.getNombreEmpleado());
-		
-		if(ProyectoHasUsuarioAsignadoDAO.existeAsignacion(findBySSO.getId(),proyecto.getId())){
-			mav.setViewName("error/errorGenerico");
-			mav.addObject("mensaje","La asignacion ya existe");
-			mav.addObject("url","adminIni.htm");
+			List<Proyecto> proyectoUsuarioAsignado = usuarioAsignadoDAO.findAssignamentsFromUser(asociacion.getNombreEmpleado());
+			
+			for (Proyecto proyecto : proyectoUsuarioAsignado) {
+				
+				if(proyecto.getId() == asociacion.getIdProyecto()){
+					
+					mav.setViewName("error/errorGenerico");
+					mav.addObject("url", "adminIni.htm");
+					mav.addObject("mensaje", "La Asociacion ya existe.");
+					return mav;
+					
+				}
+				
+			}
+					
+			Proyecto byKey = proyectoDAO.getByKey(asociacion.getIdProyecto());
+			findUsuarioAsignado.addProyecto(byKey);
+			usuarioAsignadoDAO.persist(findUsuarioAsignado);
+				
+				
+			
+			
 			return mav;
-		
+			
 		}else{
-			usuarioAsignadoDAO.persist(usAsig);	
+			
+			Proyecto proyecto = proyectoDAO.findProyectoByProyectId(asociacion.getIdProyecto());
+			User user = userDAO.findBySSO(asociacion.getNombreEmpleado());
+			UsuarioAsignado newUsuarioAsignado = new UsuarioAsignado();
+			newUsuarioAsignado.setSsoId(user.getSsoId());
+			newUsuarioAsignado.addProyecto(proyecto);
+			usuarioAsignadoDAO.persist(newUsuarioAsignado);
+			
+			
+			return mav;
 		
 			
 		}
 		
-		return mav;
+		
 		
 	}
 	
@@ -193,6 +206,48 @@ public class EmpleadoController {
 		
 	}
 	
+	
+	@RequestMapping("admin/doDesAsignarEmpleado.htm")
+	public @ResponseBody String doDesAsignarEmpleado(String asocEmplProyecto){
+		
+		AsociacionEmpleadoProyecto asocEmpleadoProyecto = gsonUtility.getGson().fromJson(asocEmplProyecto, AsociacionEmpleadoProyecto.class);
+		
+		
+		UsuarioAsignado usuarioAsignado = usuarioAsignadoDAO.findUsuarioAsignado(asocEmpleadoProyecto.getNombreEmpleado());
+		
+		List<Proyecto> proyectos = usuarioAsignado.getProyectos();
+		
+		int aux = -1;
+		for (int i = 0 ;i<proyectos.size(); i++ ) {
+			
+			if(proyectos.get(i).getId() == asocEmpleadoProyecto.getIdProyecto()){
+				aux = i;
+				break;
+			}
+			
+			
+		}
+		ModelAndView mav = new ModelAndView("error/errorGenerico");
+		if(aux != -1){
+			
+			proyectos.remove(aux);
+			usuarioAsignadoDAO.update(usuarioAsignado);
+			mav.addObject("mensaje","Se des-asocio con exito");
+			mav.addObject("url","adminIni.htm");
+			
+			return "200";
+			
+		}else {
+			
+			mav.addObject("mensaje","Se produjo un error.");
+			mav.addObject("url","adminIni.htm");
+			return "500";
+			
+		}
+		
+		
+		
+	}
 	
 	
 }

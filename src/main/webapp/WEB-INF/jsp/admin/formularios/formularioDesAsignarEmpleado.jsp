@@ -5,54 +5,115 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
+
+
+<script src="<c:url value='/static/jquery-ui-1.12.0/jquery-ui.js' />"></script>
+<link rel="stylesheet"
+	href="<c:url value='/static/jquery-ui-1.12.0/jquery-ui.min.css' />">
+
+
+
 <script type="text/javascript">
+	function getProyectosByEmpleado() {
 
+		var nombreEmpleado = $('#nombreEmpleado').val();
 
+		$
+				.ajax({
 
-function getProyectosByEmpleado(){
-	
-	var nombreEmpleado = $('#nombreEmpleado').val();
-	
-	
-	$.ajax({
+					url : "obtenerProyectosPorEmpleado.htm",
+					type : "GET",
+					data : "ssoid=" + nombreEmpleado,
+					success : function(data) {
+						var respuesta = $.parseJSON(data);
+
+						$('#tags').empty();
+						$(respuesta)
+								.each(
+										function(index, proyecto) {
+
+											$('#tags')
+													.append(
+															'<span class="tag label label-info" onclick="verProyecto('+ proyecto.id
+																	+ ',this)" ">'
+																	+ proyecto.nombre
+																	+ '<span data-role="remove"></span></span>');
+
+										});
+
+					}
+
+				});
+
+	}
+
+	function verProyecto(idProyecto,labelers) {
 		
-		url : "obtenerProyectosPorEmpleado.htm",
-		type : "GET",
-		data : "ssoid="+nombreEmpleado,
-		success: function(data){
-			var respuesta = $.parseJSON(data);
+		var error;
+		$("#selectBox").dialog({
+			resizable : false,
+			height : 140,
+			title : "Seguro que desea desasignar este empleado?",
+			modal : true,
+			buttons : {
+				"Aceptar" : function() {
+
+					var request = new Object();
+					request.nombreEmpleado = $("#nombreEmpleado").val();
+					request.idProyecto = idProyecto;
+					var request = JSON.stringify(request);
+					
+
+					$.ajax({
+
+						url : "doDesAsignarEmpleado.htm",
+						type : "GET",
+						data : "asocEmplProyecto=" + request,
+						success : function(data) {
+							$(labelers).hide();
+						
+							//error = data;
+							
+							if (data == 200) {
+								
+								$(".tag").empty();
+								$("#nombreEmpleado").val("");
+							} else {
+								
+								alert("ocurrio un error pase 500");
+
+							}
+							
+							
+	
+						},
+
+					});
+
+					$(this).dialog("close");
 			
-			
-			$('#tags').empty();
-			$(respuesta).each(function(index,proyecto){
-				
-			$('#tags').append('<span class="tag label label-info" onclick="verProyecto('+proyecto.id+')" ">'+proyecto.nombre+'<span data-role="remove"></span></span>');
-				
-				
-			});
-			
-			
-		}
+					
+
+				},
+				"Cancelar" : function() {
+					
+					$(this).dialog("close");
+
+				},
+
+			}
+		});
 		
-	});
+		
 	
-	
-	
-	
-}
+		
 
-function verProyecto(idProyecto){
-	
-	//FIXME 
-	//tiene que mandar a una pantalla que muestre el proyecto, puede ser un modal
-	
-	
-}
-
-
+	}
 </script>
 </head>
 <body>
+
+<label id="selectBox" style="display:none;">Proyectos: </label>
 
 	<form:form method="post" modelAttribute="asociacionEmpleadoProyecto"
 		action="asignarEmpleado.htm" data-example-id="simple-input-groups"
@@ -74,17 +135,15 @@ function verProyecto(idProyecto){
 		<label id="labelProyectosA">Proyectos a los cuales esta
 			asignado:</label>
 		<div id="contenedorAsignacion"></div>
-		<div class="bootstrap-tagsinput" id="tags">
-			
-		</div>
+		<div class="bootstrap-tagsinput" id="tags"></div>
 
 		<br />
 		<br />
 		<br />
 
-		<input type="button" onclick="submitForm('formAsignarEmpleado','')"
-			value="DesAsociar" class="form-control btn btn-primary" placeholder="Username"
-			aria-describedby="basic-addon1">
+		<!-- 		<input type="button" onclick="submitForm('formAsignarEmpleado','')" -->
+		<!-- 			value="DesAsociar" class="form-control btn btn-primary" placeholder="Username" -->
+		<!-- 			aria-describedby="basic-addon1"> -->
 
 	</form:form>
 
