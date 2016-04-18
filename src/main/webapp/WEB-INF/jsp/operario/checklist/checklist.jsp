@@ -182,7 +182,6 @@
 		});
 
 
-
 	}
 
 	var idModal = "";
@@ -786,6 +785,9 @@
 	<form:form id="refreshForm" method="post"
 		modelAttribute="maquinaProyectoIdDTO" action="verSoloMaquinas.htm"
 		style="display: none;">
+	
+<%-- 	<form:form id="refreshForm" method="post" modelAttribute="maquinaProyectoIdDTO" --%>
+<%-- 		action="verSoloMaquinas.htm"> --%>
 		<form:input id="refreshMaquina" path="maquinaId" type="text" />
 		<form:input id="refreshProyecto" path="proyectoId" type="text" />
 	</form:form>

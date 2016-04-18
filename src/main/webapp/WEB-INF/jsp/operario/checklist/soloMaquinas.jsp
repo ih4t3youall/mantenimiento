@@ -117,7 +117,6 @@
 
 
 
-
 		<input type="button" onclick="submitForm('formCrearMaquina')"
 			value="Crear" class="form-control" placeholder="Username"
 			aria-describedby="basic-addon1">

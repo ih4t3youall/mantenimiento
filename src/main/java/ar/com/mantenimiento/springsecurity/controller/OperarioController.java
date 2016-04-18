@@ -62,7 +62,6 @@ public class OperarioController {
 //			maquinas.add(maquina);
 //
 //		}
-		
 		List<Maquina> maquinas = getMaquinas(idProyecto);
 		
 
