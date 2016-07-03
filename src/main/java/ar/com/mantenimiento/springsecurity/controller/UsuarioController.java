@@ -210,7 +210,7 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping("*/doCambiarContrasenia.htm")
-	public ModelAndView doCmabiarContraseña(Principal principal, CambiarContraseniaDTO cambiarContraseniaDTO){
+	public ModelAndView doCmabiarContrasenia(Principal principal, CambiarContraseniaDTO cambiarContraseniaDTO){
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -219,7 +219,7 @@ public class UsuarioController {
 		if(user.getPassword().equals(cambiarContraseniaDTO.getOldPassword())){
 			
 			mav.setViewName("error/errorGenerico");
-			mav.addObject("mensaje","Contraseña actualizada correctamente.");
+			mav.addObject("mensaje","Contraseï¿½a actualizada correctamente.");
 			mav.addObject("url",obtenerUrlVolver(user));
 			
 			user.setPassword(cambiarContraseniaDTO.getNewPassword());

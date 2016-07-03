@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.file.Paths;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import ar.com.mantenimiento.dto.EmpresaDTO;
 import ar.com.mantenimiento.entity.Empresa;
 import ar.com.mantenimiento.entity.Maquina;
 import ar.com.mantenimiento.springsecurity.dao.impl.EmpresaDAO;
@@ -91,6 +93,20 @@ public class RestController {
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	} // method uploadFile
+	
+	private boolean existeEmpresa(Empresa empresa){
+		List<Empresa> empresas = empresaDAO.getAll(Empresa.class);
+		
+		for (Empresa empresa2 : empresas) {
+			
+			if(empresa2.getNombre().equals(empresa.getNombre()))
+				return true;
+			
+		}
+		
+		return false;
+		
+	}
 
 	@RequestMapping(value = "admin/uploadFileEmpresa", method = RequestMethod.POST)
 	@ResponseBody
@@ -99,6 +115,9 @@ public class RestController {
 
 		Empresa empresa = gsonUtility.getGson().fromJson(empresaDTO, Empresa.class);
 
+		
+		
+		if(!existeEmpresa(empresa)){
 		empresaDAO.persist(empresa);
 
 		if (uploadfile.getOriginalFilename().equals("")) {
@@ -130,6 +149,11 @@ public class RestController {
 
 		empresaDAO.persist(empresa);
 		return new ResponseEntity<>(HttpStatus.OK);
+		}else{
+			
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			
+		}
 	} // method uploadFile
 
 }

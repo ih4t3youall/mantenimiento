@@ -27,7 +27,7 @@ public class EmpresaController {
 		return mav;
 
 	}
-	
+//	
 	
 	@RequestMapping("admin/crearEmpresa.htm")
 	public @ResponseBody  String ajaxMaquinasProyectos(Empresa empresa) {
@@ -39,5 +39,12 @@ public class EmpresaController {
 
 	}
 	
-	
+	@RequestMapping("admin/exitoCrearEmpresa.htm")
+	public @ResponseBody ModelAndView exitoCrearEmpresa(){
+		
+		ModelAndView mav = new ModelAndView("admin/exito/exito");
+		mav.addObject("mensaje","Empresa creada con exito!");
+		return mav;
+		
+	}
 }

@@ -53,12 +53,10 @@
 			contentType : false,
 			cache : false,
 			success : function() {
-				// Handle upload success
-				// ...
+				getForm('exitoCrearEmpresa.htm');
 			},
 			error : function() {
-				// Handle upload error
-				// ...
+				alert("El nombre ya existe!");
 			}
 		});
 
