@@ -310,6 +310,14 @@
 			var numeroInterno = $("#numeroInterno").val();
 			var numeroOrden = $("#numeroOrden").val();
 			
+			console.log("Send-> "+send);
+			console.log("maquina-> "+maquina);
+			console.log("epp opcional-> "+eppOpcional);
+			console.log("epp obligatorio-> "+ eppObligatorio);
+			console.log("fecha programada-> "+fechaProgramada);
+			console.log("numero de orden-> "+numeroOrden);
+			console.log("numero interno-> "+numeroInterno);
+			
 			$.ajax({
 
 				url : "submitTemplateFormulario.htm",
@@ -324,7 +332,7 @@
 
 				},
 				error : function(error) {
-
+					console.log(error);
 					alert("Ocurrio un error");
 				}
 
@@ -522,7 +530,7 @@
 	<div id="eppObligatorio">
 		<label>Epp obligatorio</label>
 		<c:forEach items="${obligatorio}" var="epp">
-
+<h1>Hola</h1>
 			<img onClick="setSelected(${epp.idEpp})" id="${epp.idEpp}"
 				src="data:image/jpeg;base64,${epp.imagen}" />
 
@@ -539,7 +547,7 @@
 	<div id="eppOpcional">
 		<label>EPP Opcional</label>
 		<c:forEach items="${opcional}" var="epp">
-
+			<h1>Hola</h1>
 			<img onClick="setSelected(${epp.idEpp})" id="${epp.idEpp}"
 				src="data:image/jpeg;base64,${epp.imagen}" />
 
@@ -558,7 +566,7 @@
 	<div class="form-group">
 				<label for="usr">Ingrese Numero de interno:</label> <input
 					type="text" class="form-control customInput "
-					id="numeroInterno" value="" >
+					id="numeroInterno" value="${form.nroInterno}" >
 			</div>
 	</div>
 	
@@ -567,7 +575,7 @@
 	<div class="form-group">
 				<label for="usr">Ingrese Numero de orden:</label> <input
 					type="text" class="form-control customInput "
-					id="numeroOrden" value="" >
+					id="numeroOrden" value="${form.nroOrden}" >
 			</div>
 	</div>
 	

@@ -35,7 +35,7 @@
 											$('#tags')
 													.append(
 															'<span class="tag label label-info" onclick="verProyecto('+ proyecto.id
-																	+ ',this)" ">'
+																	+ ',this,\''+proyecto.nombre+'\')" ">'
 																	+ proyecto.nombre
 																	+ '<span data-role="remove"></span></span>');
 
@@ -47,12 +47,14 @@
 
 	}
 
-	function verProyecto(idProyecto,labelers) {
+	function verProyecto(idProyecto,labelers,nombreProyecto) {
 		
 		var error;
+		
+		$("#selectBox").html("Proyecto:"+nombreProyecto);
 		$("#selectBox").dialog({
 			resizable : false,
-			height : 140,
+			height : 200,
 			title : "Seguro que desea desasignar este empleado?",
 			modal : true,
 			buttons : {
