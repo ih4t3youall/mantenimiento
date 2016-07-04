@@ -778,7 +778,26 @@
 		</div>
 		<div class="col-md-1"></div>
 	</div>
-	<a href="inicio.htm"><input type="button" value="volver" /></a>
+	<div class="row">
+		<div class="col-md-1"></div>
+
+
+		<div class="col-md-3"></div>
+		<div class="col-md-4">
+			<button class="btn btn-secondary btn-lg btn-block" type="button"
+				onclick="window.location.href='inicio.htm';">Volver</button>
+
+
+		</div>
+
+		<div class="col-md-2"></div>
+
+
+		<div class="col-md-1"></div>
+
+
+
+	</div>
 
 	<!-- form para cambio de pagina -->
 

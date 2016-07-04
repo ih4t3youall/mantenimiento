@@ -54,6 +54,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#example').DataTable();
+		
 	});
 
 	function acomodarFecha() {
@@ -121,62 +122,67 @@
 
 							});
 
+							
+							//acomoda para que se vean las observaciones que con el select de arriba mata todo
+							var obser =$("#observaciones2").html();
+							$("#observaciones2").val(obser);
+							
 						});
 
 			});
 
-	function submitForm() {
+// 	function submitForm() {
 
-		var form = new Object();
-		var maquina = new Object();
-		var proyecto = new Object();
-		var empresa = new Object();
-		form.formItems = [];
+// 		var form = new Object();
+// 		var maquina = new Object();
+// 		var proyecto = new Object();
+// 		var empresa = new Object();
+// 		form.formItems = [];
 
-		form.observaciones = $("#observaciones2").val();
-		form.aptoServicio = $("#aptoServicio").val();
-		maquina.id = parseInt($("#idMaquina").html());
-		empresa.id = $("#idEmpresa").html();
-		proyecto.id = $("#idProyecto").html();
-		form.fechaRealizacion = $("#fechaRealizacion").val();
-		form.fechaProgramada = $("#fechaProgramada").html();
+// 		form.observaciones = $("#observaciones2").val();
+// 		form.aptoServicio = $("#aptoServicio").val();
+// 		maquina.id = parseInt($("#idMaquina").html());
+// 		empresa.id = $("#idEmpresa").html();
+// 		proyecto.id = $("#idProyecto").html();
+// 		form.fechaRealizacion = $("#fechaRealizacion").val();
+// 		form.fechaProgramada = $("#fechaProgramada").html();
 
-		form.empresa = empresa;
-		form.proyecto = proyecto;
-		form.maquina = maquina;
-		$(".fila").each(function(index, item) {
+// 		form.empresa = empresa;
+// 		form.proyecto = proyecto;
+// 		form.maquina = maquina;
+// 		$(".fila").each(function(index, item) {
 
-			var formItem = new Object();
+// 			var formItem = new Object();
 
-			var combos = $(item).find("select");
-			var observaciones = $(item).find("p");
-			var label = $(item).find("label");
+// 			var combos = $(item).find("select");
+// 			var observaciones = $(item).find("p");
+// 			var label = $(item).find("label");
 
-			formItem.label = $(label).html();
-			formItem.posee = $(combos[0]).val();
-			formItem.estado = $(combos[1]).val();
-			formItem.observaciones = $(observaciones).val();
+// 			formItem.label = $(label).html();
+// 			formItem.posee = $(combos[0]).val();
+// 			formItem.estado = $(combos[1]).val();
+// 			formItem.observaciones = $(observaciones).val();
 
-			form.formItems.push(formItem);
+// 			form.formItems.push(formItem);
 
-		});
+// 		});
 
-		var sendable = JSON.stringify(form);
+// 		var sendable = JSON.stringify(form);
 
-		$.ajax({
+// 		$.ajax({
 
-			url : "submitChecklist.htm",
-			type : "GET",
-			data : "form=" + sendable,
-			success : function(data) {
+// 			url : "submitChecklist.htm",
+// 			type : "GET",
+// 			data : "form=" + sendable,
+// 			success : function(data) {
 
-				console.log("volvi");
+// 				console.log("volvi");
 
-			}
+// 			}
 
-		});
+// 		});
 
-	}
+// 	}
 
 	var idModal = "";
 	function modalObservaciones(observacion) {
@@ -218,6 +224,25 @@
 		$('#myModal').modal('hide');
 
 	}
+	
+	function noConformidad() {
+		
+			$('#modalConformidad').modal('show');
+			//corrige un error por el cual no se ve
+			var nocon=$("#noConformidad").html();
+			$("#noConformidad").val(nocon);
+// 			$("#editarConformidad").show();
+
+	}
+	
+	function cerrarModalNoConformidad() {
+		var noConformidad = $("#noConformidad").val();
+		//ver como se va a guardar FIXME
+		$('#modalConformidad').modal('hide');
+
+	}
+	
+	
 </script>
 
 <style type="text/css">
@@ -265,6 +290,42 @@
 	<div class="modal fade" id="modalPdf" role="dialog"></div>
 
 	<!-- 	FIN MODAL PDF  -->
+	<!-- MODAL NO CONFORMIDAD -->
+
+	<div class="modal fade" id="modalConformidad" role="dialog">
+	
+	<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Nota de no conformidad</h4>
+				</div>
+				<div class="modal-body">
+
+					<div class="form-group">
+						<textarea class="form-control" rows="5" id="noConformidad">${legacy.noConformidad}</textarea>
+					
+					</div>
+
+
+				</div>
+				<div class="modal-footer">
+				
+				<div class="form-group">
+					<button class="btn btn-secondary" type="button"
+							onClick="cerrarModalNoConformidad()">Aceptar</button>
+				</div>
+				
+				</div>
+			</div>
+
+		</div>
+	
+	</div>
+
+	<!-- 	FIN MODAL NO CONFORMIDAD  -->
 
 
 	<div class="row">
@@ -628,6 +689,7 @@
 			<c:if test="${legacy.aptoServicio == false}">
 				<p>No</p>
 			</c:if>
+			
 		</div>
 
 
@@ -636,8 +698,45 @@
 
 
 	</div>
+	<c:if test="${legacy.aptoServicio == false}">
+				
+			
+	<!-- 	boton no conformidad -->
 
-	<!-- 	boton enviar -->
+	<div class="row">
+		<div class="col-md-1"></div>
+
+
+		<div class="col-md-3"></div>
+		<div class="col-md-4">
+			<button class="btn btn-secondary btn-lg btn-block" type="button"
+				onclick="noConformidad();">ver nota no conformidad</button>
+
+
+		</div>
+
+		<div class="col-md-2"></div>
+
+
+		<div class="col-md-1"></div>
+
+
+
+	</div>
+
+
+	<!-- 	separador -->
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			<hr>
+		</div>
+		<div class="col-md-1"></div>
+	</div>
+	</c:if>
+
+	<!-- 	fin separador -->
+	<!-- 	boton cerrar -->
 
 	<div class="row">
 		<div class="col-md-1"></div>

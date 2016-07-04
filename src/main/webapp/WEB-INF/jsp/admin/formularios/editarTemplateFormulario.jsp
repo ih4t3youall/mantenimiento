@@ -530,7 +530,6 @@
 	<div id="eppObligatorio">
 		<label>Epp obligatorio</label>
 		<c:forEach items="${obligatorio}" var="epp">
-<h1>Hola</h1>
 			<img onClick="setSelected(${epp.idEpp})" id="${epp.idEpp}"
 				src="data:image/jpeg;base64,${epp.imagen}" />
 
@@ -547,7 +546,6 @@
 	<div id="eppOpcional">
 		<label>EPP Opcional</label>
 		<c:forEach items="${opcional}" var="epp">
-			<h1>Hola</h1>
 			<img onClick="setSelected(${epp.idEpp})" id="${epp.idEpp}"
 				src="data:image/jpeg;base64,${epp.imagen}" />
 

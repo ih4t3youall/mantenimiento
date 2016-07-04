@@ -18,6 +18,7 @@ public class FormLegacyDTO {
 	private MaquinaDTO maquina;
 	private boolean aptoServicio;
 	private String observaciones;
+	private String noConformidad;
 
 	private String fechaProgramada;
 
@@ -116,5 +117,15 @@ public class FormLegacyDTO {
 	public void setFormItemsLegacy(List<FormItemLegacy> formItemsLegacy) {
 		this.formItemsLegacy = formItemsLegacy;
 	}
+
+	public String getNoConformidad() {
+		return noConformidad;
+	}
+
+	public void setNoConformidad(String noConformidad) {
+		this.noConformidad = noConformidad;
+	}
+	
+	
 
 }

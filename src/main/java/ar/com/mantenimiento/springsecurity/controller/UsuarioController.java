@@ -121,9 +121,11 @@ public class UsuarioController {
 		for (Empresa empresa : empresas) {
 
 			EmpresaDTO empresaDTO = dozerMapper.map(empresa, EmpresaDTO.class);
-			
+			if(empresa.getUrlImagen() != null)
 			empresaDTO.setUrlImagen(ImageConverterUtility.convertImage(empresa.getUrlImagen()));
-			
+			else
+				empresaDTO.setUrlImagen("");
+				
 			if (flag) {
 
 				columnaA.add(empresaDTO);
