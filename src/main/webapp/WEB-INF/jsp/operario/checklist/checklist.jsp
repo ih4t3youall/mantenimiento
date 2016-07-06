@@ -223,6 +223,33 @@
 
 	}
 	
+	function soloMaquinas(){
+		
+		var maquinaProyectoIdDTO = new Object();
+		maquinaProyectoIdDTO.maquinaId =$("#idMaquina").html().trim();
+		maquinaProyectoIdDTO.proyectoId =$("#idProyecto").html().trim();
+		
+		var sendable = JSON.stringify(maquinaProyectoIdDTO);
+		
+		console.log(sendable);
+		
+		$.ajax({
+
+			url : "verSoloMaquinasAjax.htm",
+			type : "GET",
+			data : "maquinasProyectoDTO=" + sendable,
+			success : function(data) {
+				$("#cuerpo").empty();
+				$("#cuerpo").append(data);
+		 		
+
+			}
+
+		});
+		
+		
+	}
+	
 	function noConformidad() {
 
 		if ($("#aptoServicio").val() == "false") {
@@ -252,7 +279,7 @@
 </style>
 
 </head>
-<body>
+<body id="cuerpo">
 
 
 	<!-- Modal -->
@@ -785,7 +812,7 @@
 		<div class="col-md-3"></div>
 		<div class="col-md-4">
 			<button class="btn btn-secondary btn-lg btn-block" type="button"
-				onclick="window.location.href='inicio.htm';">Volver</button>
+				onclick="soloMaquinas()">Volver</button>
 
 
 		</div>

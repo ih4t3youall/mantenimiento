@@ -12,13 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.com.mantenimiento.dto.IdMaquinaDTO;
 import ar.com.mantenimiento.dto.MaquinaProyectoIdDTO;
 import ar.com.mantenimiento.entity.Maquina;
 import ar.com.mantenimiento.entity.Proyecto;
 import ar.com.mantenimiento.springsecurity.dao.impl.MaquinaDAO;
 import ar.com.mantenimiento.springsecurity.dao.impl.ProyectoDAO;
 import ar.com.mantenimiento.springsecurity.dao.impl.UsuarioAsignadoDAO;
+import ar.com.mantenimiento.utility.GsonUtility;
 
 @Controller
 @Transactional
@@ -33,6 +33,9 @@ public class OperarioController {
 	@Autowired
 	private MaquinaDAO maquinaDAO;
 
+	@Autowired
+	private GsonUtility gsonUtility;
+	
 	@RequestMapping("operario/inicio.htm")
 	public ModelAndView inicioOperario() {
 
@@ -107,6 +110,14 @@ public class OperarioController {
 		
 		
 		
+		
+	}
+	
+	@RequestMapping("operario/verSoloMaquinasAjax.htm")
+	public ModelAndView verSoloMaquinasAjax(String maquinasProyectoDTO){
+		
+		MaquinaProyectoIdDTO maquinaProyectoIdDTO = gsonUtility.getGson().fromJson(maquinasProyectoDTO, MaquinaProyectoIdDTO.class);
+		return verSoloMAquinas(maquinaProyectoIdDTO);
 		
 	}
 	
