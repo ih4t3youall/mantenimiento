@@ -22,7 +22,7 @@ USE `mantenimiento` ;
 -- -----------------------------------------------------
 -- Table `mantenimiento`.`app_user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mantenimiento`.`app_user` (
+CREATE TABLE IF NOT EXISTS `mantenimiento`.`APP_USER` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `EMAIL` VARCHAR(255) NOT NULL COMMENT '',
   `FIRST_NAME` VARCHAR(255) NOT NULL COMMENT '',
@@ -41,7 +41,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `mantenimiento`.`user_profile`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mantenimiento`.`user_profile` (
+CREATE TABLE IF NOT EXISTS `mantenimiento`.`USER_PROFILE` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `TYPE` VARCHAR(15) NOT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',
@@ -54,7 +54,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `mantenimiento`.`app_user_user_profile`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mantenimiento`.`app_user_user_profile` (
+CREATE TABLE IF NOT EXISTS `mantenimiento`.`APP_USER_USER_PROFILE` (
   `USER_ID` INT(11) NOT NULL COMMENT '',
   `USER_PROFILE_ID` INT(11) NOT NULL COMMENT '',
   PRIMARY KEY (`USER_ID`, `USER_PROFILE_ID`)  COMMENT '',
@@ -341,23 +341,23 @@ VALUES ('operario','operario', 'Sam','Smith','samy@xyz.com', 'Active');
  
 /* Populate JOIN Table */
 INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
-  SELECT user.id, profile.id FROM app_user user, user_profile profile  
+  SELECT user.id, profile.id FROM APP_USER user, USER_PROFILE profile  
   where user.sso_id='admin' and profile.type='USUARIO';
  
 INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
-  SELECT user.id, profile.id FROM app_user user, user_profile profile
+  SELECT user.id, profile.id FROM APP_USER user, USER_PROFILE profile
   where user.sso_id='admin' and profile.type='DBA';
  
 INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
-  SELECT user.id, profile.id FROM app_user user, user_profile profile
+  SELECT user.id, profile.id FROM APP_USER user, USER_PROFILE profile
   where user.sso_id='admin' and profile.type='ADMIN';
   
  INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
-  SELECT user.id, profile.id FROM app_user user, user_profile profile  
+  SELECT user.id, profile.id FROM APP_USER user, USER_PROFILE profile  
   where user.sso_id='user' and profile.type='USUARIO';
  
 INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
-  SELECT user.id, profile.id FROM app_user user, user_profile profile
+  SELECT user.id, profile.id FROM APP_USER user, USER_PROFILE profile
   where user.sso_id='operario' and profile.type='OPERARIO';
  
   
