@@ -200,18 +200,16 @@ li {
 					<ul class="subnavegador ">
 						
 						<li role="presentation">
-							<button type="button" class="btn btn-default btn-sm" onClick="getForm('formCambiarContrasenia.htm')">
-								<span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span>
-								Cambiar Contraseña
-							</button>
+							
+							
+							<a href="#"onClick="getForm('formCambiarContrasenia.htm')">	Cambiar Contraseña</a>
+							
 
 
 						</li>
-						<li role="presentation"><a href="<c:url value='/logout' />"><button
-									type="button" class="btn btn-default btn-sm">
-									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+						<li role="presentation"><a href="<c:url value='/logout' />">
 									Deslogearse
-								</button></a></li>
+								</a></li>
 					</ul></li>
 				<li><a class="desplegable" href="#" title="Alquiler">Mas
 						Opciones</a>

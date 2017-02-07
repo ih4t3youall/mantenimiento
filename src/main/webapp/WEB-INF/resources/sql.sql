@@ -198,6 +198,7 @@ CREATE TABLE IF NOT EXISTS `mantenimiento`.`form_legacy` (
   `idProyecto` INT(11) NOT NULL COMMENT '',
   `last_modify_date` DATE NULL DEFAULT NULL COMMENT '',
   `observaciones` VARCHAR(255) NULL DEFAULT NULL COMMENT '',
+  `noConformidad` VARCHAR(1500) NULL DEFAULT NULL COMMENT '',
   PRIMARY KEY (`idFormLegacy`)  COMMENT '')
 ENGINE = InnoDB
 AUTO_INCREMENT = 23

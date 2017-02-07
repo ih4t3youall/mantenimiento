@@ -272,7 +272,7 @@ li {
 	<div tabindex="-1" id="content" class="bs-docs-header">
 		<div class="container">
 			<h1 id="titulo">Panel Administrador</h1>
-			<p id="copete">cristina 2020</p>
+<!-- 			<p id="copete">cristina 2020</p> -->
 			<div id="carbonads-container">
 				<div class="carbonad">
 					<div id="azcarbon"></div>
@@ -294,20 +294,14 @@ li {
 					class="desplegable" title="Venta">Usuario</a>
 					<ul class="subnavegador ">
 						
-						<li role="presentation">
-							<button type="button" class="btn btn-default btn-sm"
-								onClick="getForm('formCambiarContrasenia.htm')">	
-								<span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span>
-								Cambiar Contraseña
-							</button>
+						<li role="presentation" >
+								<a href="#"onClick="getForm('formCambiarContrasenia.htm')">Cambiar Contraseña</a>
 
 
 						</li>
-						<li role="presentation"><a href="<c:url value='/logout' />"><button
-									type="button" class="btn btn-default btn-sm">
-									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+						<li role="presentation"><a href="<c:url value='/logout' />">
 									Deslogearse
-								</button></a></li>
+								</a></li>
 					</ul></li>
 				<li><a class="desplegable" href="#" title="Alquiler">Empleados</a>
 					<ul class="subnavegador">
@@ -339,14 +333,11 @@ li {
 
 				<li><a class="desplegable" href="#" title="Alquiler">Formularios</a>
 					<ul class="subnavegador">
-						<li role="presentation"><a
-							onClick="formularioCrearFormulario()" href="#" title="Viviendas"
-							onClick="formAsignarEmpleado()">Crear Formularios</a></li>
+					
 						<li role="presentation"><a href="#" title="Viviendas"
 							onClick="getForm('templateFormulario.htm')">Crear check list
 						</a></li>
-						<li role="presentation"><a href="#" title="Viviendas"
-							onClick="getForm('editarFormulario.htm')">Editar formulario </a></li>
+					
 
 					</ul></li>
 

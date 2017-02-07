@@ -563,7 +563,7 @@
 	<div id="numeroInternoDiv">
 	<div class="form-group">
 				<label for="usr">Ingrese Numero de interno:</label> <input
-					type="text" class="form-control customInput "
+					type="number" class="form-control customInput "
 					id="numeroInterno" value="${form.nroInterno}" >
 			</div>
 	</div>
@@ -572,7 +572,7 @@
 	<div id="numeroOrdenDiv">
 	<div class="form-group">
 				<label for="usr">Ingrese Numero de orden:</label> <input
-					type="text" class="form-control customInput "
+					type="number" class="form-control customInput "
 					id="numeroOrden" value="${form.nroOrden}" >
 			</div>
 	</div>
