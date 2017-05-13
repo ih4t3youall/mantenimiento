@@ -18,7 +18,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 @Entity
-@Table(name="APP_USER")
+@Table(name="app_user")
 public class User {
 
 	@Id 
