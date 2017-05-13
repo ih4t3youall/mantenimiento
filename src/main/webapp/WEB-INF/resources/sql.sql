@@ -22,14 +22,14 @@ USE `mantenimiento` ;
 -- -----------------------------------------------------
 -- Table `mantenimiento`.`app_user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mantenimiento`.`APP_USER` (
+CREATE TABLE IF NOT EXISTS `mantenimiento`.`app_user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `EMAIL` VARCHAR(255) NOT NULL COMMENT '',
-  `FIRST_NAME` VARCHAR(255) NOT NULL COMMENT '',
-  `LAST_NAME` VARCHAR(255) NOT NULL COMMENT '',
-  `PASSWORD` VARCHAR(255) NOT NULL COMMENT '',
-  `SSO_ID` VARCHAR(255) NOT NULL COMMENT '',
-  `STATE` VARCHAR(255) NOT NULL COMMENT '',
+  `email` VARCHAR(255) NOT NULL COMMENT '',
+  `first_name` VARCHAR(255) NOT NULL COMMENT '',
+  `last_name` VARCHAR(255) NOT NULL COMMENT '',
+  `password` VARCHAR(255) NOT NULL COMMENT '',
+  `sso_id` VARCHAR(255) NOT NULL COMMENT '',
+  `state` VARCHAR(255) NOT NULL COMMENT '',
   `empresa_id` INT(11) NULL DEFAULT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',
   UNIQUE INDEX `UK_hqk6uc88j3imq8u9jhro36vt3` (`SSO_ID` ASC)  COMMENT '')
@@ -41,7 +41,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `mantenimiento`.`user_profile`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mantenimiento`.`USER_PROFILE` (
+CREATE TABLE IF NOT EXISTS `mantenimiento`.`user_profile` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `TYPE` VARCHAR(15) NOT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',
@@ -54,16 +54,16 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `mantenimiento`.`app_user_user_profile`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mantenimiento`.`APP_USER_USER_PROFILE` (
-  `USER_ID` INT(11) NOT NULL COMMENT '',
-  `USER_PROFILE_ID` INT(11) NOT NULL COMMENT '',
-  PRIMARY KEY (`USER_ID`, `USER_PROFILE_ID`)  COMMENT '',
-  INDEX `FK_gs2lq4vmukguubh36utd4r2cl` (`USER_PROFILE_ID` ASC)  COMMENT '',
+CREATE TABLE IF NOT EXISTS `mantenimiento`.`app_user_user_profile` (
+  `user_id` INT(11) NOT NULL COMMENT '',
+  `user_profile_id` INT(11) NOT NULL COMMENT '',
+  PRIMARY KEY (`user_id`, `user_profile_id`)  COMMENT '',
+  INDEX `FK_gs2lq4vmukguubh36utd4r2cl` (`user_profile_id` ASC)  COMMENT '',
   CONSTRAINT `FK_brmce0t584euix4wb4rursf1q`
-    FOREIGN KEY (`USER_ID`)
+    FOREIGN KEY (`user_id`)
     REFERENCES `mantenimiento`.`app_user` (`id`),
   CONSTRAINT `FK_gs2lq4vmukguubh36utd4r2cl`
-    FOREIGN KEY (`USER_PROFILE_ID`)
+    FOREIGN KEY (`user_profile_id`)
     REFERENCES `mantenimiento`.`user_profile` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -150,13 +150,13 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `mantenimiento`.`form_form_has_epp`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mantenimiento`.`form_form_has_epp` (
-  `Form_idForm` INT(11) NOT NULL COMMENT '',
+  `form_idForm` INT(11) NOT NULL COMMENT '',
   `formHasEpps_idForm` INT(11) NOT NULL COMMENT '',
   `formHasEpps_idEpp` INT(11) NOT NULL COMMENT '',
   UNIQUE INDEX `UK_onvc31cqr8f4t8mut69gaa28k` (`formHasEpps_idForm` ASC, `formHasEpps_idEpp` ASC)  COMMENT '',
-  INDEX `FK_g6povfu5lt38k09yoyr3kqnkk` (`Form_idForm` ASC)  COMMENT '',
+  INDEX `FK_g6povfu5lt38k09yoyr3kqnkk` (`form_idForm` ASC)  COMMENT '',
   CONSTRAINT `FK_g6povfu5lt38k09yoyr3kqnkk`
-    FOREIGN KEY (`Form_idForm`)
+    FOREIGN KEY (`form_idForm`)
     REFERENCES `mantenimiento`.`form` (`idForm`),
   CONSTRAINT `FK_onvc31cqr8f4t8mut69gaa28k`
     FOREIGN KEY (`formHasEpps_idForm` , `formHasEpps_idEpp`)
@@ -317,48 +317,48 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 /*INSERT INTO USER_PROFILE(type)
 VALUES ('USER');*/
  
-INSERT INTO USER_PROFILE(type)
+INSERT INTO user_profile(type)
 VALUES ('ADMIN');
 
-INSERT INTO USER_PROFILE(type)
+INSERT INTO user_profile(type)
 VALUES ('OPERARIO');
 
-INSERT INTO USER_PROFILE(type)
+INSERT INTO user_profile(type)
 VALUES ('USUARIO ');
  
-INSERT INTO USER_PROFILE(type)
+INSERT INTO user_profile(type)
 VALUES ('DBA');
  
 /* Populate APP_USER Table */
-INSERT INTO APP_USER(sso_id, password, first_name, last_name, email, state)
+INSERT INTO app_user(sso_id, password, first_name, last_name, email, state)
 VALUES ('admin','admin', 'admin','admin','bill@xyz.com', 'Active');
  
-INSERT INTO APP_USER(sso_id, password, first_name, last_name, email, state)
+INSERT INTO app_user(sso_id, password, first_name, last_name, email, state)
 VALUES ('user','user', 'user','user','danny@xyz.com', 'Active');
  
-INSERT INTO APP_USER(sso_id, password, first_name, last_name, email, state)
+INSERT INTO app_user(sso_id, password, first_name, last_name, email, state)
 VALUES ('operario','operario', 'Sam','Smith','samy@xyz.com', 'Active');
  
  
 /* Populate JOIN Table */
-INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
-  SELECT user.id, profile.id FROM APP_USER user, USER_PROFILE profile  
+INSERT INTO app_user_user_profile (user_id, user_profile_id)
+  SELECT user.id, profile.id FROM app_user user, user_profile profile  
   where user.sso_id='admin' and profile.type='USUARIO';
  
-INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
-  SELECT user.id, profile.id FROM APP_USER user, USER_PROFILE profile
+INSERT INTO app_user_user_profile (user_id, user_profile_id)
+  SELECT user.id, profile.id FROM app_user user, user_profile profile
   where user.sso_id='admin' and profile.type='DBA';
  
-INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
-  SELECT user.id, profile.id FROM APP_USER user, USER_PROFILE profile
+INSERT INTO app_user_user_profile (user_id, user_profile_id)
+  SELECT user.id, profile.id FROM app_user user, user_profile profile
   where user.sso_id='admin' and profile.type='ADMIN';
   
- INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
-  SELECT user.id, profile.id FROM APP_USER user, USER_PROFILE profile  
+ INSERT INTO app_user_user_profile (user_id, user_profile_id)
+  SELECT user.id, profile.id FROM app_user user, user_profile profile  
   where user.sso_id='user' and profile.type='USUARIO';
  
-INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
-  SELECT user.id, profile.id FROM APP_USER user, USER_PROFILE profile
+INSERT INTO app_user_user_profile (user_id, user_profile_id)
+  SELECT user.id, profile.id FROM app_user user, user_profile profile
   where user.sso_id='operario' and profile.type='OPERARIO';
  
   

@@ -246,100 +246,52 @@
 
 	}
 
+
 	function doSubmit() {
-		
-		var idMaquina = $("#idMaquina").html();
-
-		 var oMyForm = new FormData($("#upload-file-form")[0]);
-		  oMyForm.append("idMaquina",idMaquina);
-
-			$.ajax({
-			    url: "uploadFile",
-			    type: "POST",
-			    data: oMyForm,
-			    enctype: 'multipart/form-data',
-			    processData: false,
-			    contentType: false,
-			    cache: false,
-			    success: function () {
-			      // Handle upload success
-			      // ...
-			    },
-			    error: function () {
-			      // Handle upload error
-			      // ...
-			    }
-			  });
-
-
 		var enviar = [];
 		$(".textos").each(function(index, item) {
 			var aux = new Object();
 			aux.label = $(item).val();
-
 			aux.idformItem = $(item).attr("id");
-
+// FIXME esto pregunta por algo que obviamente existe
 			if (aux != "") {
 				enviar.push(aux);
 			}
 		});
-
 		if (enviar.length > 0) {
-
 			var maquina = $("#idMaquina").html();
-
 			var eppOpcional = [];
 			var eppObligatorio = [];
-
 			$(".eppOpcional").each(function(index, item) {
-
 				eppOpcional.push($(item).val());
-
 			});
 			$(".eppObligatorio").each(function(index, item) {
-
 				eppObligatorio.push($(item).val());
-
 			});
-
+		  
 			var fechaProgramada = $("#fechaProgramada").val();
-
-			var send = JSON.stringify(enviar);
-
-			$("#frmAlta").submit();
-			var numeroInterno = $("#numeroInterno").val();
-			var numeroOrden = $("#numeroOrden").val();
-			
-			console.log("Send-> "+send);
-			console.log("maquina-> "+maquina);
-			console.log("epp opcional-> "+eppOpcional);
-			console.log("epp obligatorio-> "+ eppObligatorio);
-			console.log("fecha programada-> "+fechaProgramada);
-			console.log("numero de orden-> "+numeroOrden);
-			console.log("numero interno-> "+numeroInterno);
-			
+		  
+		var send = JSON.stringify(enviar);
+		 
+		  
+		  
 			$.ajax({
-
 				url : "submitTemplateFormulario.htm",
 				type : "GET",
 				data : "camposFormulario=" + send + "&idMaquina=" + maquina
 						+ "&eppOpcional=" + eppOpcional + "&eppObligatorio="
 						+ eppObligatorio + "&fechaProgramada="
-						+ fechaProgramada+"&numeroOrden="+numeroOrden+"&numeroInterno="+numeroInterno,
+						+ fechaProgramada,
 				success : function(response) {
-
 					getForm('templateFormulario.htm');
-
 				},
 				error : function(error) {
-					console.log(error);
 					alert("Ocurrio un error");
 				}
-
 			});
-
 		}
 	}
+
 
 
 	function setSelected(id){

@@ -60,75 +60,49 @@
 	$(document)
 			.ready(
 					function() {
-
 						$("#closeModal")
 								.click(
 										function() {
-
 											//$("option")
 											var seleccion = [];
 											$('#multiple :selected').each(	function(i, selected) {
 												seleccion[i] = $(selected)	.val();
 													});
-
 											$(seleccion).each(function(index,item) {
-
 																if ($("#check").is(':checked')) {
 																	$("#contenedor").append("<input style='display: none;' class='eppOpcional' value='"+item+"'>");
 																} else {
 																	$("#contenedor").append("<input style='display: none;' class='eppObligatorio' value='"+item+"'>");
-
 																}
-
 															});
-
 										});
-
 					});
-
 	function agregarCampo() {
-
 		var campo = '<div class="form-group"> 		<label for="usr">Ingrese Nombre Input checkbox:</label> <input type="text" class="form-control customInput textos"	id="0">	</div>';
-
 		$('#campos').append(campo);
-
 	}
-
 	function doSubmit() {
-
 		var enviar = [];
 		$(".textos").each(function(index, item) {
 			var aux = new Object();
 			aux.label = $(item).val();
-
 			aux.idformItem = $(item).attr("id");
 // FIXME esto pregunta por algo que obviamente existe
 			if (aux != "") {
 				enviar.push(aux);
 			}
 		});
-
-
-
 		if (enviar.length > 0) {
-
 			var maquina = $("#idMaquina").html();
-
 			var eppOpcional = [];
 			var eppObligatorio = [];
-
 			$(".eppOpcional").each(function(index, item) {
-
 				eppOpcional.push($(item).val());
-
 			});
 			$(".eppObligatorio").each(function(index, item) {
-
 				eppObligatorio.push($(item).val());
-
 			});
 		  
-
 			var fechaProgramada = $("#fechaProgramada").val();
 		  
 		var send = JSON.stringify(enviar);
@@ -136,7 +110,6 @@
 		  
 		  
 			$.ajax({
-
 				url : "submitTemplateFormulario.htm",
 				type : "GET",
 				data : "camposFormulario=" + send + "&idMaquina=" + maquina
@@ -144,23 +117,15 @@
 						+ eppObligatorio + "&fechaProgramada="
 						+ fechaProgramada,
 				success : function(response) {
-
 					getForm('templateFormulario.htm');
-
 				},
 				error : function(error) {
-
 					alert("Ocurrio un error");
 				}
-
 			});
-
 		}
-
 	}
-
 	function asignarEPP() {
-
 	}
 	
 	function uploadFormData(){
@@ -181,23 +146,16 @@
 	    }
 	  });
 	}
-
-
 	function modalEPP() {
-
 		$.ajax({
-
 			url : "eppModal.htm",
 			type : "GET",
 			success : function(data) {
-
 				$('#modalEPP').modal('show');
 				$(".modal-EPP-body").empty();
 				$(".modal-EPP-body").append(data);
 			}
-
 		});
-
 	}
 </script>
 </head>
@@ -227,17 +185,17 @@
 	</div>
 
 
-<!--  Form 2 -->
+<!--  Form 2 -->
 <h1> hola</h1>
 <i>Uploading File With Ajax</i><br/>
 <form id="form2" method="post" action="/spring-mvc-file-upload/rest/cont/upload" enctype="multipart/form-data">
-  <!-- File input -->    
-  <input name="file2" id="file2" type="file" /><br/>
+  <!-- File input -->    
+  <input name="file2" id="file2" type="file" /><br/>
 </form>
- 
+ 
 
 <button value="Submit" onclick="uploadFormData()" >Upload</button><i>Using FormData Object</i>
- 
+ 
 <div id="result"></div>
 </body>
 </html>

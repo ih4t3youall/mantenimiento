@@ -25,31 +25,31 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name="SSO_ID", unique=true, nullable=false)
+	@Column(name="sso_id", unique=true, nullable=false)
 	private String ssoId;
 	
-	@Column(name="PASSWORD", nullable=false)
+	@Column(name="password", nullable=false)
 	private String password;
 		
-	@Column(name="FIRST_NAME", nullable=false)
+	@Column(name="forst_name", nullable=false)
 	private String firstName;
 
-	@Column(name="LAST_NAME", nullable=false)
+	@Column(name="last_name", nullable=false)
 	private String lastName;
 
 	private Integer empresa_id;
 	
 	
-	@Column(name="EMAIL", nullable=false)
+	@Column(name="email", nullable=false)
 	private String email;
 
-	@Column(name="STATE", nullable=false)
+	@Column(name="state", nullable=false)
 	private String state=State.ACTIVE.getState();
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "APP_USER_USER_PROFILE", 
-             joinColumns = { @JoinColumn(name = "USER_ID") }, 
-             inverseJoinColumns = { @JoinColumn(name = "USER_PROFILE_ID") })
+	@JoinTable(name = "app_user_user_profile", 
+             joinColumns = { @JoinColumn(name = "user_id") }, 
+             inverseJoinColumns = { @JoinColumn(name = "user_profile_id") })
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
 
